@@ -5,13 +5,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Notification Test | Create Message</title>
+    <title>Notifications App. | Create Message</title>
     <script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!--Bootstrap CSS-->
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-    <!--Bootstrap JS-->
-    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </head>
 
 <body class="full-center">
@@ -19,7 +15,7 @@
         <div class="flex flex-1 justify-end">&nbsp;</div>
         <p class="text-sm leading-6 text-white">
             <a href="/">
-                <strong class="font-semibold">Notification Test</strong>
+                <strong class="font-semibold">Notifications App.</strong>
             </a>
             &nbsp;|&nbsp;
             <span>Create Message</span>
@@ -50,7 +46,7 @@
 
                 <div class="row mb-3">
                     <div class="col">
-                        <select id="category-select" class="form-control" name="category-select" th:required="true">
+                        <select id="category-select" name="category-select" th:required="true" style="padding: 10px;background-color: white;">
                             <option value="">Select a Message Category</option>
                             <option th:each="Item : ${categorySelect}"
                                     th:value="${Item.categoryId}"

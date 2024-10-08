@@ -16,7 +16,7 @@ public class MessageController {
 
     @GetMapping("/banner")
     public String banner(Model model) {
-        model.addAttribute("title", "Notification Test");
+        model.addAttribute("title", "Notifications App.");
         //model.addAttribute("message","Join us in Barcelona, Spain from May 30 – 31");
         return "01/banner :: banner";
     }
