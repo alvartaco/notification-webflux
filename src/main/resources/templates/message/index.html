@@ -8,6 +8,7 @@
     <title>Notifications App. | Create Message</title>
     <script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery.min.js"></script>
 </head>
 
 <body class="full-center">
@@ -45,12 +46,13 @@
         <div class="flex flex-1 justify-end">&nbsp;</div>
 
             <form style="width:100%"
-                    class="form-signin" role="form" th:action="@{/public/forgot-password}" th:method="post">
+                    class="form-message" role="form" th:action="@{/message/create}" th:method="post">
 
                 <div class="row mb-3">
                     <div class="col" style="text-align: center;">
-                        <select autofocus class="rounded-md" id="category-select"
-                                name="category-select" th:required="true" style="padding: 5px;background-color: white;margin:10px;">
+                        <select autofocus class="rounded-md"
+                                id="categoryId"
+                                name="categoryId" th:required="true" style="padding: 5px;background-color: white;margin:10px;">
                             <option value="">Select a Message Category</option>
                             <option th:each="Item : ${categorySelect}"
                                     th:value="${Item.categoryId}"
@@ -64,8 +66,8 @@
                 <div class="mb-3">
                     <textarea
                             required
-                            id="demo-text-multiple"
-                            name="demo-multi-string"
+                            id="messageBody"
+                            name="messageBody"
                             class="rounded-md"
                             rows="3"
                             style="height: 8em; width:100%;"
@@ -83,10 +85,21 @@
                             SAVE
                         </button>
                     </div>
+                    <div class="fadeout form-floating mb-3 alert alert-danger text-center" role="alert" th:text="${error}">Error</div>
+                    <div class="fadeout form-floating mb-3 alert alert-danger text-center" role="alert" th:text="${message}">Message</div>
                 </div>
             </form>
         <div class="flex flex-1 justify-end">&nbsp;</div>
     </div>
-
+    <script>
+        function fadeOut()
+        {
+            $(".fadeout").fadeToggle(500, "swing",function(){
+                      this.remove();
+                    });
+        }
+        var delay = 3000; //3 seconds
+        setTimeout(fadeOut, delay);
+    </script>
 </body>
 </html>
