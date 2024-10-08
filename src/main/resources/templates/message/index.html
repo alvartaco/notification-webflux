@@ -28,6 +28,7 @@
             <button
                 type="button"
                 class="rounded-md bg-green-500 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-green-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 m-4"
+                style="text-wrap: nowrap;"
                 onclick="location.href='/message';">
                 Create Message
             </button>
@@ -42,11 +43,14 @@
 
     <div id="message-data" class="flex items-center gap-x-6 bg-green-200 px-6 py-2.5 sm:px-1.5 ">
         <div class="flex flex-1 justify-end">&nbsp;</div>
-            <form class="form-signin" role="form" th:action="@{/public/forgot-password}" th:method="post">
+
+            <form style="width:100%"
+                    class="form-signin" role="form" th:action="@{/public/forgot-password}" th:method="post">
 
                 <div class="row mb-3">
-                    <div class="col">
-                        <select id="category-select" name="category-select" th:required="true" style="padding: 10px;background-color: white;">
+                    <div class="col" style="text-align: center;">
+                        <select autofocus class="rounded-md" id="category-select"
+                                name="category-select" th:required="true" style="padding: 5px;background-color: white;margin:10px;">
                             <option value="">Select a Message Category</option>
                             <option th:each="Item : ${categorySelect}"
                                     th:value="${Item.categoryId}"
@@ -57,23 +61,32 @@
                     </div>
                 </div>
 
-                <div class="mt-4 mb-4">
-                    <input type="email" id="email" name="email" class="" placeholder="Email address" required
-                           autofocus/>
-                    <label class="sr-only" for="email">Email </label>
+                <div class="mb-3">
+                    <textarea
+                            required
+                            id="demo-text-multiple"
+                            name="demo-multi-string"
+                            class="rounded-md"
+                            rows="3"
+                            style="height: 8em; width:100%;"
+                            placeholder="The Message"
+                    ></textarea>
+                    <div class="col"  style="text-align: center;padding-top: 15px;">
+                        <input required id="d-checkbox" name="d-checkbox" type="checkbox">
+                        <label for="d-checkbox" class="f-label">Message Reviewed</label>
+                    </div>
+                    <div class="col" style="text-align: center;">
+                        <button
+                                type="submit"
+                                class="rounded-md bg-green-500 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-green-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 m-4"
+                                style="text-wrap: nowrap;">
+                            SAVE
+                        </button>
+                    </div>
                 </div>
-
-                <div class="form-floating mb-3"></div>
-                <button class="btn btn-primary w-100" type="submit">Send Password Reset Link</button>
             </form>
         <div class="flex flex-1 justify-end">&nbsp;</div>
     </div>
 
-
-    <!--
-    <form action="/createmessage" th:action="@{/createmessage}" th:object="${departamentos}" method="post">
-        <p><input type="submit" value="Save" /></p>
-    </form>
-    -->
 </body>
 </html>
