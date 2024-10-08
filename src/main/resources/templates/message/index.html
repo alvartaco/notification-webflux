@@ -15,7 +15,8 @@
 </head>
 
 <body class="full-center">
-    <div id="banner" class="flex items-center gap-x-6 bg-green-600 px-6 py-2.5 sm:px-1.5 sm:before:flex-1">
+    <div id="banner" class="flex items-center gap-x-6 bg-green-600 px-6 py-2.5 sm:px-1.5">
+        <div class="flex flex-1 justify-end">&nbsp;</div>
         <p class="text-sm leading-6 text-white">
             <a href="/">
                 <strong class="font-semibold">Notification Test</strong>
@@ -23,64 +24,60 @@
             &nbsp;|&nbsp;
             <span>Create Message</span>
         </p>
-        <div class="flex flex-1 justify-end">
-            &nbsp;
-        </div>
+        <div class="flex flex-1 justify-end">&nbsp;</div>
     </div>
 
-    <div id="buttons" class="flex items-center gap-x-6 bg-white-500 px-6 py-2.5 sm:px-1.5 sm:before:flex-1">
-        <button
-            type="button"
-            class="rounded-md bg-green-500 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-green-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 m-4"
-            onclick="location.href='/message';">
-            Create Message
-        </button>
-
-        <button
+    <div id="buttons" class="flex items-center gap-x-6 bg-white-500 px-6 py-2.5 sm:px-1.5">
+        <div class="flex flex-1 justify-end">&nbsp;</div>
+            <button
                 type="button"
                 class="rounded-md bg-green-500 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-green-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 m-4"
-                onclick="location.href='/notifications';">
-            Notifications
-        </button>
-        <div class="flex flex-1 justify-end">
-            &nbsp;
-        </div>
+                onclick="location.href='/message';">
+                Create Message
+            </button>
+            <button
+                    type="button"
+                    class="rounded-md bg-green-500 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-green-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 m-4"
+                    onclick="location.href='/notifications';">
+                Notifications
+            </button>
+        <div class="flex flex-1 justify-end">&nbsp;</div>
     </div>
 
-    <div id="mail" class="flex items-center gap-x-6 bg-green-200 px-6 py-2.5 sm:px-1.5 sm:before:flex-1">
-        <form class="form-signin" role="form" th:action="@{/public/forgot-password}" th:method="post">
-            <div class="mt-4 mb-4">
-                <input type="email" id="email" name="email" class="" placeholder="Email address" required
-                       autofocus/>
-                <label class="sr-only" for="email">Email </label>
-            </div>
+    <div id="message-data" class="flex items-center gap-x-6 bg-green-200 px-6 py-2.5 sm:px-1.5 ">
+        <div class="flex flex-1 justify-end">&nbsp;</div>
+            <form class="form-signin" role="form" th:action="@{/public/forgot-password}" th:method="post">
 
-            <div class="form-floating mb-3">
+                <div class="row mb-3">
+                    <div class="col">
+                        <select id="category-select" class="form-control" name="category-select" th:required="true">
+                            <option value="">Select a Message Category</option>
+                            <option th:each="Item : ${categorySelect}"
+                                    th:value="${Item.categoryId}"
+                                    th:text="${Item.categoryName}"
+                                    th:selected="false"
+                            />
+                        </select>
+                    </div>
+                </div>
 
-            </div>
-            <button class="btn btn-primary w-100" type="submit">Send Password Reset Link</button>
-        </form>
-        <div class="flex flex-1 justify-end">
-            &nbsp;
-        </div>
+                <div class="mt-4 mb-4">
+                    <input type="email" id="email" name="email" class="" placeholder="Email address" required
+                           autofocus/>
+                    <label class="sr-only" for="email">Email </label>
+                </div>
+
+                <div class="form-floating mb-3"></div>
+                <button class="btn btn-primary w-100" type="submit">Send Password Reset Link</button>
+            </form>
+        <div class="flex flex-1 justify-end">&nbsp;</div>
     </div>
 
 
-
+    <!--
     <form action="/createmessage" th:action="@{/createmessage}" th:object="${departamentos}" method="post">
-        <div class="row mb-3">
-            <div class="col">
-                <select id="category-select" class="form-control" name="category-select" th:required="true">
-                    <option value="">Select a Message Category</option>
-                    <option th:each="Item : ${categorySelect}"
-                            th:value="${Item.categoryId}"
-                            th:text="${Item.categoryName}"
-                            th:selected="false"
-                    />
-                </select>
-            </div>
-        </div>
         <p><input type="submit" value="Save" /></p>
     </form>
+    -->
 </body>
 </html>
