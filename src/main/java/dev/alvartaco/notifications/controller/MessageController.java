@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller for message creation handling
+ */
 @Controller
 public class  MessageController {
 
@@ -24,6 +27,13 @@ public class  MessageController {
         this.categoryService = categoryService;
     }
 
+    /**
+     * Entry point for the message creation Form
+     * @param error
+     * @param message
+     * @param model
+     * @return
+     */
     @GetMapping("/message")
     public String message(@RequestParam(name = "error", defaultValue = "") String error,
                           @RequestParam(name = "message", defaultValue = "") String message,
@@ -46,6 +56,13 @@ public class  MessageController {
         return "message/index";
     }
 
+    /**
+     * Method that calls the service to store the message in the DB
+     * @param categoryId
+     * @param messageBody
+     * @param model
+     * @return
+     */
     @PostMapping("/message/create")
     String createMessage(@RequestParam(name = "categoryId") String categoryId,
                          @RequestParam(name = "messageBody") String messageBody,
@@ -60,6 +77,9 @@ public class  MessageController {
             return "index";
         }
 
+        /*
+         * Validation for existing in Database categoryId
+         */
         if (categories.stream().noneMatch(dto -> dto.getCategoryId() == Short.parseShort(categoryId))) {
             // TESTED /
             log.error("#NOTIFICATIONS - Error with received categoryID /message/create");
