@@ -43,6 +43,7 @@ create TABLE IF NOT EXISTS Message (
    message_id bigint NOT NULL,
    category_id smallint NOT NULL,
    message_body TEXT NOT NULL,
+   message_created_on timestamp NOT NULL,
    PRIMARY KEY (message_id),
    CONSTRAINT fk_category
       FOREIGN KEY(category_id)
