@@ -23,7 +23,7 @@ public class  MessageController {
     private static final Logger log = LoggerFactory.getLogger(MessageController.class);
     private final CategoryService categoryService;
 
-    public MessageController( CategoryService categoryService) {
+    public MessageController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
@@ -46,7 +46,7 @@ public class  MessageController {
 
         List<CategoryDTO> categories;
         try {
-            categories = categoryService.getAllByCategoryNameAsc();
+            categories = categoryService.getAllCategoryDTOsByCategoryNameAsc();
         } catch (CategoryNotFoundException e) {
             // TESTED //
             log.error("#NOTIFICATIONS - Error getting categories /message, fwd to index.");
@@ -70,7 +70,7 @@ public class  MessageController {
 
         List<CategoryDTO> categories;
         try {
-            categories = categoryService.getAllByCategoryNameAsc();
+            categories = categoryService.getAllCategoryDTOsByCategoryNameAsc();
         } catch (CategoryNotFoundException e) {
             // TESTED //
             log.error("#NOTIFICATIONS - Error getting categories /message/create, fwd to index.");

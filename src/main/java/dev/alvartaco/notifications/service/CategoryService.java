@@ -18,15 +18,17 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public CategoryDTO getCategoryByCategoryId(Short categoryId ) throws CategoryNotFoundException {
-        Category category = categoryRepository.findByCategoryId(categoryId)
-                .orElseThrow(() -> new CategoryNotFoundException("Category not found"));
-
-        return mapToDTO(category);
-
+    public CategoryDTO getCategoryDTOByCategoryId(Short categoryId ) throws CategoryNotFoundException {
+        return mapToDTO(categoryRepository.findByCategoryId(categoryId)
+                .orElseThrow(() -> new CategoryNotFoundException("Category not found")));
     }
 
-    public List<CategoryDTO> getAllByCategoryNameAsc() throws CategoryNotFoundException {
+    public Category getCategoryByCategoryId(Short categoryId ) throws CategoryNotFoundException {
+        return categoryRepository.findByCategoryId(categoryId)
+                .orElseThrow(() -> new CategoryNotFoundException("Category not found"));
+    }
+
+    public List<CategoryDTO> getAllCategoryDTOsByCategoryNameAsc() throws CategoryNotFoundException {
         try {
             List<CategoryDTO> categoriesDTO = new ArrayList<>();
             for (Category category : categoryRepository.findAllByCategoryNameAsc()) {
@@ -40,7 +42,6 @@ public class CategoryService {
 
     /**
      * Used to map important fields to CategoryDTO
-     * @param Category
      * @return CategoryDTO
      */
     private CategoryDTO mapToDTO(Category category) {
@@ -50,5 +51,9 @@ public class CategoryService {
         );
     }
 
-
+    /*
+    public List<Category> getAllCategoriesByCategoryNameAsc() {
+        return categoryRepository.findAllByCategoryNameAsc();
+    }
+    */
 }

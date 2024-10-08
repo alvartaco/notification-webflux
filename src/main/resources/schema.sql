@@ -1,3 +1,6 @@
+--
+-- Dropping tables at the beginning if the exist.
+--
 DROP TABLE IF EXISTS Message;
 DROP TABLE IF EXISTS Category;
 
@@ -38,9 +41,8 @@ create TABLE IF NOT EXISTS Category (
 --
 create TABLE IF NOT EXISTS Message (
    message_id bigint NOT NULL,
-   category_id int NOT NULL,
+   category_id smallint NOT NULL,
    message_body TEXT NOT NULL,
-   message_version int NOT NULL,
    PRIMARY KEY (message_id),
    CONSTRAINT fk_category
       FOREIGN KEY(category_id)
