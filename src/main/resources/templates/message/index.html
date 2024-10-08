@@ -10,10 +10,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery.min.js"></script>
 </head>
-
-<body class="full-center">
-    <div id="banner" class="flex items-center gap-x-6 bg-green-600 px-6 py-2.5 sm:px-1.5">
-        <div class="flex flex-1 justify-end">&nbsp;</div>
+<body>
+    <div id="banner" class="flex gap-x-6 bg-green-600 px-6 py-2.5 sm:px-1.5">
         <p class="text-sm leading-6 text-white">
             <a href="/">
                 <strong class="font-semibold">Notifications App.</strong>
@@ -24,8 +22,7 @@
         <div class="flex flex-1 justify-end">&nbsp;</div>
     </div>
 
-    <div id="buttons" class="flex items-center gap-x-6 bg-white-500 px-6 py-2.5 sm:px-1.5">
-        <div class="flex flex-1 justify-end">&nbsp;</div>
+    <div id="buttons" class="flex gap-x-6 bg-white-500 px-6 py-2.5 sm:px-1.5">
             <button
                 type="button"
                 class="rounded-md bg-green-500 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-green-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 m-4"
@@ -41,15 +38,11 @@
             </button>
         <div class="flex flex-1 justify-end">&nbsp;</div>
     </div>
-
-    <div id="message-data" class="flex items-center gap-x-6 bg-green-200 px-6 py-2.5 sm:px-1.5 ">
-        <div class="flex flex-1 justify-end">&nbsp;</div>
-
+    <div id="message-data" class="flex bg-green-200 px-6 py-2.5 sm:px-1.5 ">
             <form style="width:100%"
                     class="form-message" role="form" th:action="@{/message/create}" th:method="post">
-
                 <div class="row mb-3">
-                    <div class="col" style="text-align: center;">
+                    <div class="col" style="text-align: left;">
                         <select autofocus class="rounded-md"
                                 id="categoryId"
                                 name="categoryId" th:required="true" style="padding: 5px;background-color: white;margin:10px;">
@@ -62,7 +55,6 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="mb-3">
                     <textarea
                             required
@@ -73,20 +65,23 @@
                             style="height: 8em; width:100%;"
                             placeholder="The Message"
                     ></textarea>
-                    <div class="col"  style="text-align: center;padding-top: 15px;">
-                        <input required id="d-checkbox" name="d-checkbox" type="checkbox">
-                        <label for="d-checkbox" class="f-label">Message Reviewed</label>
+                    <div class="col">
+                        <div class="col" style="text-align: left;padding-top: 15px;">
+                            <input required id="d-checkbox" name="d-checkbox" type="checkbox">
+                            <label for="d-checkbox" class="f-label">Message Reviewed</label>
+
+                        </div>
+                        <div class="col" style="text-align: right;">
+                            <button
+                                    type="submit"
+                                    class="rounded-md bg-green-500 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-green-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 m-4"
+                                    style="text-wrap: nowrap;">
+                                SAVE
+                            </button>
+                        </div>
+                        <div class="fadeout form-floating mb-3 alert alert-danger text-right" role="alert" th:text="${error}">Error</div>
+                        <div class="fadeout form-floating mb-3 alert alert-danger text-right" role="alert" th:text="${message}">Message</div>
                     </div>
-                    <div class="col" style="text-align: center;">
-                        <button
-                                type="submit"
-                                class="rounded-md bg-green-500 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-green-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 m-4"
-                                style="text-wrap: nowrap;">
-                            SAVE
-                        </button>
-                    </div>
-                    <div class="fadeout form-floating mb-3 alert alert-danger text-center" role="alert" th:text="${error}">Error</div>
-                    <div class="fadeout form-floating mb-3 alert alert-danger text-center" role="alert" th:text="${message}">Message</div>
                 </div>
             </form>
         <div class="flex flex-1 justify-end">&nbsp;</div>
