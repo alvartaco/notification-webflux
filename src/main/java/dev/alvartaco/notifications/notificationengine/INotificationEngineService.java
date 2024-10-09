@@ -7,7 +7,7 @@ package dev.alvartaco.notifications.notificationengine;
  * and provide the type of notifications that they can send.
  *
  */
-public interface INotificationService {
+public interface INotificationEngineService {
     /**
      * It will Send a notification.
      */
