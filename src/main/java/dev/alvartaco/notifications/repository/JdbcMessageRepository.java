@@ -64,15 +64,31 @@ public class JdbcMessageRepository implements IMessageRepository{
      */
     public void create(@Valid Message message) throws MessageException{
         try {
-            var updated = jdbcClient.sql("INSERT INTO message(message_id, category_id, message_body, message_created_on) " +
-                            "values((SELECT (count(message_id)+1) FROM message),?,?,?)")
-                    .params(List.of(message.category().getCategoryId(),message.messageBody(),message.createdOn()))
-                    .update();
-
-            Assert.state(updated == 1, "Failed to create Message %s | %s"
-                    .formatted(message.category().getCategoryName(), message.messageBody()));
+            if (count() > 0) {
+                var updated = jdbcClient.sql("INSERT INTO message(message_id, category_id, message_body, message_created_on) " +
+                                "values ( (SELECT ((message_id)+1) FROM message ORDER BY message_id DESC LIMIT 1 )," +
+                                "?,?,?)")
+                        .params(List.of(message.category().getCategoryId(), message.messageBody(), message.createdOn()))
+                        .update();
+                Assert.state(updated == 1, "Failed to create Message, table is empty");
+            } else {
+                var firstRow = jdbcClient.sql("INSERT INTO message(message_id, category_id, message_body, message_created_on) " +
+                                "values(1,?,?,?)")
+                        .params(List.of(message.category().getCategoryId(), message.messageBody(), message.createdOn()))
+                        .update();
+                Assert.state(firstRow == 1, "Failed to create Message.");
+            }
         } catch (Exception e) {
             log.error("#NOTIFICATIONS - create(Message message) ");
+            throw new MessageException(e.toString());
+        }
+    }
+
+    public int count() throws MessageException {
+        try {
+            return jdbcClient.sql("select message_id from message").query().listOfRows().size();
+        } catch (Exception e) {
+            log.error("#NOTIFICATIONS - count() ");
             throw new MessageException(e.toString());
         }
     }

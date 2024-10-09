@@ -40,7 +40,7 @@ create TABLE IF NOT EXISTS Category (
 --    private long userId;
 --
 create TABLE IF NOT EXISTS Message (
-   message_id bigint NOT NULL,
+   message_id int NOT NULL,
    category_id smallint NOT NULL,
    message_body TEXT NOT NULL,
    message_created_on timestamp NOT NULL,

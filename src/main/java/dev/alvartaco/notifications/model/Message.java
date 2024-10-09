@@ -1,12 +1,13 @@
 package dev.alvartaco.notifications.model;
 
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
 public record Message (
-        Long messageId,
+        Integer messageId,
+        @NotNull
         Category category,
         @NotEmpty
         String messageBody,

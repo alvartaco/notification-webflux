@@ -15,4 +15,6 @@ public interface IMessageRepository {
 
         void create(@Valid Message message) throws MessageException;
 
+        int count() throws MessageException;
+
 }

@@ -92,7 +92,8 @@ public class  MessageController {
             messageService.create(message);
 
         } catch (MessageException | CategoryException e) {
-            throw new RuntimeException(e);
+            log.error("#NOTIFICATIONS - Error saving message/message/create, fwd to index.");
+            return message("ERROR saving message!!!", "", model);
         }
 
         return message("", "Message Saved..!", model);
