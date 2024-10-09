@@ -3,6 +3,8 @@ package dev.alvartaco.notifications.controller;
 import dev.alvartaco.notifications.dto.CategoryDTO;
 import dev.alvartaco.notifications.exception.CategoryException;
 import dev.alvartaco.notifications.service.CategoryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,19 +18,21 @@ import java.util.List;
 @RestController
 public class CategoryController {
 
+    private static final Logger log = LoggerFactory.getLogger(CategoryController.class);
     private final CategoryService categoryService;
-
     public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
     @GetMapping("/categories")
     List<CategoryDTO> getAllByCategoryNameAsc() throws CategoryException {
+        log.info("#NOTIFICATIONS - INSIDE /categories");
         return categoryService.getAllCategoryDTOsByCategoryNameAsc();
     }
 
     @GetMapping("/categories/{categoryId}")
     CategoryDTO getCategoryByCategoryId(@PathVariable short categoryId) throws CategoryException {
+        log.info("#NOTIFICATIONS - INSIDE /categories/{categoryId}");
         return categoryService.getCategoryDTOByCategoryId((short) categoryId);
     }
 }

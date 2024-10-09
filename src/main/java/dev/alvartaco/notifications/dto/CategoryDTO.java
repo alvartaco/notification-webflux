@@ -1,5 +1,8 @@
 package dev.alvartaco.notifications.dto;
 
+/**
+ * DTO Created because Categories are nor Records
+ */
 public class CategoryDTO {
 
     private Short categoryId;

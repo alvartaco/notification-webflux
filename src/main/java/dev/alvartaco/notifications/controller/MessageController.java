@@ -42,6 +42,8 @@ public class  MessageController {
                           @RequestParam(name = "message", defaultValue = "") String message,
                           Model model) {
 
+        log.info("#NOTIFICATIONS - START /message");
+
         if (!message.isEmpty())
             model.addAttribute(MESSAGE, message);
         if (!error.isEmpty())
@@ -56,6 +58,7 @@ public class  MessageController {
             return "index";
         }
         model.addAttribute("categorySelect", categories);
+        log.info("#NOTIFICATIONS - END /message");
         return "message/index";
     }
 
@@ -66,6 +69,8 @@ public class  MessageController {
     String createMessage(@RequestParam(name = "categoryId") String categoryId,
                          @RequestParam(name = "messageBody") String messageBody,
                          Model model) {
+
+        log.info("#NOTIFICATIONS - START /message/create");
 
         /*
          * Validation for existing in Database categoryId
@@ -98,6 +103,8 @@ public class  MessageController {
             log.error("#NOTIFICATIONS - Error saving message/message/create, fwd to index.");
             return message("ERROR saving message!!!", "", model);
         }
+
+        log.info("#NOTIFICATIONS - END /message/create");
 
         return message("", "Message Saved..!", model);
     }
