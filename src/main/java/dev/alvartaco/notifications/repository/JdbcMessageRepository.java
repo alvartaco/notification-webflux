@@ -44,7 +44,7 @@ public class JdbcMessageRepository implements IMessageRepository{
      * @param messageId The id of the requested Message
      * @return Optional of Message
      */
-    public Optional<Message> findByMessageId(Long messageId) throws MessageException {
+    public Optional<Message> findByMessageId(Integer messageId) throws MessageException {
         try {
             return jdbcClient.sql("SELECT message_id, category_id, message_body, message_created_on " +
                             "FROM message WHERE message_id = :messageId" )

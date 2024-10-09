@@ -1,12 +1,12 @@
 --
 -- Dropping tables at the beginning if the exist.
 --
-DROP TABLE IF EXISTS Message;
-DROP TABLE IF EXISTS Category;
+drop TABLE IF EXISTS Message;
+drop TABLE IF EXISTS Category;
 
 --
 --  Category.java
---    private Integer categoryId;
+--    private Short categoryId;
 --    private String categoryName;
 --
 -- Future Enhancement Fields.
@@ -14,38 +14,55 @@ DROP TABLE IF EXISTS Category;
 --    private Integer categoryOrder;
 --    private LocalDateTime createDateTime;
 --    private LocalDateTime modifiedDateTime;
---    private long userId;
+--    private Integer userId;
 --    private boolean categoryEnabled;
 --
-create TABLE IF NOT EXISTS Category (
-   category_id smallint NOT NULL,
-   category_name varchar(30) NOT NULL,
-   PRIMARY KEY (category_id)
+create table if not exists Category (
+   category_id smallint not null,
+   category_name varchar(30) not null,
+   primary key (category_id)
 );
 
 --
 --  Message.java
---        @Id
---        Long messageId,
---        @NotNull
---        Category category,
---       @NotEmpty
---        String messageBody,
---        @Version
---        Integer messageVersion
+--          Integer messageId,
+--          @NotNull
+--          Category category,
+--          @NotEmpty
+--          String messageBody,
+--          @NotEmpty
+--          LocalDateTime createdOn
 --
 -- Future Enhancement Fields.
---    private LocalDateTime createDateTime;
 --    private LocalDateTime modifiedDateTime;
---    private long userId;
+--    private Integer userId;
 --
-create TABLE IF NOT EXISTS Message (
-   message_id int NOT NULL,
-   category_id smallint NOT NULL,
-   message_body TEXT NOT NULL,
-   message_created_on timestamp NOT NULL,
-   PRIMARY KEY (message_id),
-   CONSTRAINT fk_category
-      FOREIGN KEY(category_id)
-        REFERENCES category(category_id)
+create table if not exists Message (
+   message_id int not null,
+   category_id smallint not null,
+   message_body text not null,
+   message_created_on timestamp not null,
+   primary key (message_id),
+   constraint fk_category
+      foreign key(category_id)
+        references category(category_id)
 );
+
+--
+-- Tables indexes creation.
+-- They depends on DB Engine used
+--
+-- I relly on PK indexes for H2
+-- Needed for Postgres
+-- CREATE INDEX idx_category_category_id ON category(category_id);
+-- CREATE INDEX idx_message_message_id ON message(message_id);
+--
+-- I trust also in FK Index for H2
+-- Needed for Postgres
+-- CREATE INDEX idx_message_category_id ON message(category_id);
+--
+-- Because queries look at this columns for
+-- retrieval and sorting
+--
+create index idx_category_category_name on category(category_name);
+create index idx_message_message_created_on on message(message_created_on);

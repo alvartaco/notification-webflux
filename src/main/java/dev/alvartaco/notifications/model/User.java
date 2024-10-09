@@ -11,6 +11,7 @@ public record User(
         String userName,
         String userEmail,
         String userPhoneNumber,
-        List<Category> userSubscriptions
+        List<Category> userSubscriptions,
+        List<String> userChannels
 ) {
 }

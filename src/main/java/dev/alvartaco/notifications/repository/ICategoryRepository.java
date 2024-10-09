@@ -12,6 +12,6 @@ import java.util.Optional;
 public interface ICategoryRepository {
 
     List<Category> findAllByCategoryNameAsc() throws CategoryException;
-
     Optional<Category> findByCategoryId(Short categoryId) throws CategoryException;
+
 }

@@ -16,7 +16,7 @@ import java.util.List;
  *     private Integer categoryOrder;
  *     private LocalDateTime createDateTime;
  *     private LocalDateTime modifiedDateTime;
- *     private long userId;
+ *     private Integer userId;
  *     private boolean categoryEnabled;
  */
 public class Category {
