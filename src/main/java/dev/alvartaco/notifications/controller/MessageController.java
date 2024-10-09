@@ -1,14 +1,18 @@
 package dev.alvartaco.notifications.controller;
 
 import dev.alvartaco.notifications.dto.CategoryDTO;
-import dev.alvartaco.notifications.exception.CategoryNotFoundException;
+import dev.alvartaco.notifications.exception.CategoryException;
+import dev.alvartaco.notifications.exception.MessageException;
+import dev.alvartaco.notifications.model.Message;
 import dev.alvartaco.notifications.service.CategoryService;
+import dev.alvartaco.notifications.service.MessageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -22,17 +26,16 @@ public class  MessageController {
 
     private static final Logger log = LoggerFactory.getLogger(MessageController.class);
     private final CategoryService categoryService;
+    private final MessageService messageService;
 
-    public MessageController(CategoryService categoryService) {
+    public MessageController(CategoryService categoryService,
+                             MessageService messageService) {
         this.categoryService = categoryService;
+        this.messageService = messageService;
     }
 
     /**
      * Entry point for the message creation Form
-     * @param error
-     * @param message
-     * @param model
-     * @return
      */
     @GetMapping("/message")
     public String message(@RequestParam(name = "error", defaultValue = "") String error,
@@ -47,7 +50,7 @@ public class  MessageController {
         List<CategoryDTO> categories;
         try {
             categories = categoryService.getAllCategoryDTOsByCategoryNameAsc();
-        } catch (CategoryNotFoundException e) {
+        } catch (CategoryException e) {
             // TESTED //
             log.error("#NOTIFICATIONS - Error getting categories /message, fwd to index.");
             return "index";
@@ -58,33 +61,40 @@ public class  MessageController {
 
     /**
      * Method that calls the service to store the message in the DB
-     * @param categoryId
-     * @param messageBody
-     * @param model
-     * @return
      */
     @PostMapping("/message/create")
     String createMessage(@RequestParam(name = "categoryId") String categoryId,
                          @RequestParam(name = "messageBody") String messageBody,
                          Model model) {
 
-        List<CategoryDTO> categories;
+        /*
+         * Validation for existing in Database categoryId
+         */
         try {
-            categories = categoryService.getAllCategoryDTOsByCategoryNameAsc();
-        } catch (CategoryNotFoundException e) {
+            if (categoryService.getAllCategoryDTOsByCategoryNameAsc().stream().noneMatch(dto -> dto.getCategoryId() == Short.parseShort(categoryId))) {
+                // TESTED /
+                log.error("#NOTIFICATIONS - Error with received categoryID /message/create");
+                return message("ERROR with received Message Category!!!", "", model);
+            }
+        } catch (CategoryException e) {
             // TESTED //
             log.error("#NOTIFICATIONS - Error getting categories /message/create, fwd to index.");
             return "index";
         }
 
-        /*
-         * Validation for existing in Database categoryId
-         */
-        if (categories.stream().noneMatch(dto -> dto.getCategoryId() == Short.parseShort(categoryId))) {
-            // TESTED /
-            log.error("#NOTIFICATIONS - Error with received categoryID /message/create");
-            return message("ERROR with received Message Category!!!", "", model);
+        try {
+            Message message = new Message(
+                    null,
+                    categoryService.getCategoryByCategoryId(Short.valueOf(categoryId)),
+                    messageBody.trim(),
+                    LocalDateTime.now());
+
+            messageService.create(message);
+
+        } catch (MessageException | CategoryException e) {
+            throw new RuntimeException(e);
         }
+
         return message("", "Message Saved..!", model);
     }
 }

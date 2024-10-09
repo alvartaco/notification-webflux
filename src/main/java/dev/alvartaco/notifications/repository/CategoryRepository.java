@@ -1,5 +1,6 @@
 package dev.alvartaco.notifications.repository;
 
+import dev.alvartaco.notifications.exception.CategoryException;
 import dev.alvartaco.notifications.model.Category;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +11,8 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Repository (Pattern used for Data Access) of DataBase Category Records
+ * Repository of DataBase Category Records
+ * JDBC Client
  */
 @Repository
 public class CategoryRepository {
@@ -27,14 +29,15 @@ public class CategoryRepository {
      * It returns al Database Categories order by name asc
      * @return List of Category
      */
-    public List<Category> findAllByCategoryNameAsc() {
+    public List<Category> findAllByCategoryNameAsc() throws CategoryException {
+        // TESTED //
         try {
             return jdbcClient.sql("select * from category order by category_name asc")
                     .query(Category.class)
                     .list();
         } catch (Exception e) {
             log.error("#NOTIFICATIONS - List<Category> findAllByCategoryNameAsc() ");
-            throw new RuntimeException(e);
+            throw new CategoryException(e.toString());
         }
     }
 
@@ -43,7 +46,8 @@ public class CategoryRepository {
      * @param categoryId The id of the requested Category
      * @return Optional of Category
      */
-    public Optional<Category> findByCategoryId(Short categoryId) {
+    public Optional<Category> findByCategoryId(Short categoryId) throws CategoryException {
+        // TESTED //
         try {
             return jdbcClient.sql("SELECT category_id, category_name FROM category WHERE category_id = :categoryId" )
                     .param("categoryId", categoryId)
@@ -51,26 +55,8 @@ public class CategoryRepository {
                     .optional();
         } catch (Exception e) {
             log.error("#NOTIFICATIONS - Optional<Category> findByCategoryId() ");
-            throw new RuntimeException(e);
+            throw new CategoryException(e.toString());
         }
     }
 
-    /*
-     * Returns the Category if is present in Optional Object or null
-     * @param categoryId The id of the requested Category
-     * @return a Category or null
-     *
-    public Category getByCategoryId(short categoryId) {
-
-        Optional<Category> categories = findByCategoryId(categoryId);
-
-        if(categories.isEmpty()) {
-            if (log.isErrorEnabled()) {
-                log.error("There is no category with categoryId : {}", categoryId);
-            }
-            return null;
-        }
-        return categories.get();
-    }
-    */
 }

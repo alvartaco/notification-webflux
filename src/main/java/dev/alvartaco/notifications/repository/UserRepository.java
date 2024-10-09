@@ -1,6 +1,6 @@
 package dev.alvartaco.notifications.repository;
 
-import dev.alvartaco.notifications.exception.CategoryNotFoundException;
+import dev.alvartaco.notifications.exception.CategoryException;
 import dev.alvartaco.notifications.model.User;
 import dev.alvartaco.notifications.service.CategoryService;
 import jakarta.annotation.PostConstruct;
@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Repository (Pattern used for Data Access)
+ * Repository of Users
  * Also used to Initial Load of Mock User Records
  * into memory
  */
@@ -73,7 +73,7 @@ public class UserRepository {
                     )
             ));
             log.info("#NOTIFICATIONS - Users Created.");
-        } catch (CategoryNotFoundException e) {
+        } catch (CategoryException e) {
             log.error("#NOTIFICATIONS - Error getting categories when creating users.");
         }
     }

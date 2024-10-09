@@ -1,7 +1,7 @@
 package dev.alvartaco.notifications.controller;
 
 import dev.alvartaco.notifications.dto.CategoryDTO;
-import dev.alvartaco.notifications.exception.CategoryNotFoundException;
+import dev.alvartaco.notifications.exception.CategoryException;
 import dev.alvartaco.notifications.service.CategoryService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,12 +23,12 @@ public class CategoryController {
     }
 
     @GetMapping("/categories")
-    List<CategoryDTO> getAllByCategoryNameAsc() throws CategoryNotFoundException {
+    List<CategoryDTO> getAllByCategoryNameAsc() throws CategoryException {
         return categoryService.getAllCategoryDTOsByCategoryNameAsc();
     }
 
     @GetMapping("/categories/{categoryId}")
-    CategoryDTO getCategoryByCategoryId(@PathVariable short categoryId) throws CategoryNotFoundException {
+    CategoryDTO getCategoryByCategoryId(@PathVariable short categoryId) throws CategoryException {
         return categoryService.getCategoryDTOByCategoryId((short) categoryId);
     }
 }
