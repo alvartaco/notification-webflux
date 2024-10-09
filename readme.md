@@ -47,6 +47,7 @@ As a user interface, you must display 2 main elements.
   
 
     • Category. List of available categories.
+
     • Message. Text area, confirm that the message is not empty.
 
 2. Log history. A list of all data records in the log, sorted from newest to oldest.
