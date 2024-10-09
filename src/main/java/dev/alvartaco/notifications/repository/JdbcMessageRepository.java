@@ -19,9 +19,7 @@ import java.util.Optional;
 public class JdbcMessageRepository implements IMessageRepository{
 
     private static final Logger log = LoggerFactory.getLogger(JdbcMessageRepository.class);
-
     private final JdbcClient jdbcClient;
-
     public JdbcMessageRepository(JdbcClient jdbcClient) {
         this.jdbcClient = jdbcClient;
     }
@@ -82,8 +80,12 @@ public class JdbcMessageRepository implements IMessageRepository{
             log.error("#NOTIFICATIONS - create(Message message) ");
             throw new MessageException(e.toString());
         }
+        log.info("#NOTIFICATIONS - END save message.");
     }
 
+    /**
+     * Number of Message Rows in the table
+     */
     public int count() throws MessageException {
         try {
             return jdbcClient.sql("select message_id from message").query().listOfRows().size();

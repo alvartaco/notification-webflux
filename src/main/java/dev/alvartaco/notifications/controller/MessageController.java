@@ -83,12 +83,15 @@ public class  MessageController {
         }
 
         try {
+
             Message message = new Message(
                     null,
                     categoryService.getCategoryByCategoryId(Short.valueOf(categoryId)),
                     messageBody.trim(),
                     LocalDateTime.now());
 
+            log.info("#NOTIFICATIONS - START to save message.");
+            log.info("#NOTIFICATIONS - Message {}",  message);
             messageService.create(message);
 
         } catch (MessageException | CategoryException e) {

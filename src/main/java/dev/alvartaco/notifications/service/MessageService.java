@@ -15,15 +15,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class MessageService {
 
     private static final Logger log = LoggerFactory.getLogger(MessageService.class);
-
-    private final IMessageRepository messageRepository;
-
-    public MessageService(@Qualifier("jdbcMessageRepository") IMessageRepository messageRepository) {
-        this.messageRepository = messageRepository;
+    private final IMessageRepository iMessageRepository;
+    public MessageService(@Qualifier("jdbcMessageRepository") IMessageRepository iMessageRepository) {
+        this.iMessageRepository = iMessageRepository;
     }
 
+    /**
+     * Main entry point to save messages
+     */
     public void create(@Valid Message message) throws MessageException {
-        messageRepository.create(message);
+        iMessageRepository.create(message);
     }
-
 }

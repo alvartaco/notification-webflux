@@ -7,6 +7,9 @@ import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Interface to handle different types of Message Repositories
+ */
 public interface IMessageRepository {
 
         List<Message> findAllByMessageIdDesc() throws MessageException;

@@ -15,13 +15,11 @@ import java.util.Optional;
  * JDBC Client
  */
 @Repository
-public class CategoryRepository {
+public class JdbcCategoryRepository implements ICategoryRepository {
 
-    private static final Logger log = LoggerFactory.getLogger(CategoryRepository.class);
-
+    private static final Logger log = LoggerFactory.getLogger(JdbcCategoryRepository.class);
     private final JdbcClient jdbcClient;
-
-    public CategoryRepository(JdbcClient jdbcClient) {
+    public JdbcCategoryRepository(JdbcClient jdbcClient) {
         this.jdbcClient = jdbcClient;
     }
 
@@ -58,5 +56,4 @@ public class CategoryRepository {
             throw new CategoryException(e.toString());
         }
     }
-
 }

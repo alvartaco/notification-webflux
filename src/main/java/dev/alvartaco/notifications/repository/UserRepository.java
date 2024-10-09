@@ -21,25 +21,22 @@ import java.util.List;
 public class UserRepository {
 
     private static final Logger log = LoggerFactory.getLogger(UserRepository.class);
-
     private final CategoryService categoryService;
-
     public UserRepository(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
-
     private final List<User> users = new ArrayList<>();
-
     public List<User> findAll() {
         return users;
     }
 
     /**
-     * Initializes the List of users
+     * Initializes the List of Mock users
      */
     @PostConstruct
     private void init() {
         try {
+            log.info("#NOTIFICATIONS - START to save users.");
             users.add(new User(
                     1,
                     "Alejandro Sporty",
@@ -72,7 +69,8 @@ public class UserRepository {
                             categoryService.getCategoryByCategoryId((short) 2)
                     )
             ));
-            log.info("#NOTIFICATIONS - Users Created.");
+            log.info("#NOTIFICATIONS - Users {}",  users);
+            log.info("#NOTIFICATIONS - END saving users.");
         } catch (CategoryException e) {
             log.error("#NOTIFICATIONS - Error getting categories when creating users.");
         }
