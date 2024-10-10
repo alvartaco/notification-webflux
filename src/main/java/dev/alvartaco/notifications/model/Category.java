@@ -24,6 +24,11 @@ public class Category {
     private Short categoryId;
     private String categoryName;
 
+    public Category(Short categoryId, String categoryName) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
+    }
+
     public Short getCategoryId() {
         return categoryId;
     }

@@ -1,8 +1,11 @@
-package dev.alvartaco.notifications.model;
+package dev.alvartaco.notifications.dto;
+
+import dev.alvartaco.notifications.model.Message;
+import dev.alvartaco.notifications.model.User;
 
 import java.time.LocalDateTime;
 
-public class Notification {
+public class NotificationDTO {
     private Integer notificationId;
     private Message message;
     private User user;
@@ -11,13 +14,13 @@ public class Notification {
     private LocalDateTime updatedOn;
     private Integer retryNumber;
 
-    public Notification(Integer notificationId,
-                        Message message,
-                        User user,
-                        String channelType,
-                        LocalDateTime createdOn,
-                        LocalDateTime updatedOn,
-                        Integer retryNumber) {
+    public NotificationDTO(Integer notificationId,
+                           Message message,
+                           User user,
+                           String channelType, 
+                           LocalDateTime createdOn,
+                           LocalDateTime updatedOn,
+                           Integer retryNumber) {
         this.notificationId = notificationId;
         this.message = message;
         this.user = user;

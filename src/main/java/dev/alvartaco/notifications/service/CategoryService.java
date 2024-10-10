@@ -19,7 +19,7 @@ public class CategoryService {
 
     private static final Logger log = LoggerFactory.getLogger(CategoryService.class);
     private final ICategoryRepository iCategoryRepository;
-    public CategoryService(@Qualifier("jdbcCategoryRepository") ICategoryRepository iCategoryRepository) {
+    public CategoryService(@Qualifier("jdbcClientCategoryRepository") ICategoryRepository iCategoryRepository) {
         this.iCategoryRepository = iCategoryRepository;
     }
 

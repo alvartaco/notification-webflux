@@ -3,6 +3,8 @@ package dev.alvartaco.notifications.service;
 import dev.alvartaco.notifications.exception.MessageException;
 import dev.alvartaco.notifications.model.Message;
 import dev.alvartaco.notifications.model.User;
+import dev.alvartaco.notifications.notificationengine.INotificationEngineService;
+import dev.alvartaco.notifications.notificationengine.factories.NotificationEngineFactory;
 import dev.alvartaco.notifications.repository.IMessageRepository;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -20,7 +22,8 @@ public class MessageService implements IMessageService{
     private static final Logger log = LoggerFactory.getLogger(MessageService.class);
     private final IMessageRepository iMessageRepository;
     private final UserService userService;
-    public MessageService(@Qualifier("jdbcClientMessageRepository") IMessageRepository iMessageRepository,
+    public MessageService(@Qualifier("jdbcClientMessageRepository")
+                          IMessageRepository iMessageRepository,
                           UserService userService) {
         this.iMessageRepository = iMessageRepository;
         this.userService = userService;
@@ -34,11 +37,17 @@ public class MessageService implements IMessageService{
     }
 
     @Override
-    public void notifyUsers(Message message) throws MessageException {
+    public void notify(Message message) throws MessageException {
 
         List<User> users = userService.getUsersByCategoryId(message.category().getCategoryId());
         if (users != null) {
             log.info("#NOTIFICATIONS - Users {}",  users);
+
+            log.info("#NOTIFICATIONS - TODO CREATE NOTIFICATION" );
+
+            log.info("#NOTIFICATIONS - Sending corresponding dummy notification to the message " );
+
         }
+
     }
 }

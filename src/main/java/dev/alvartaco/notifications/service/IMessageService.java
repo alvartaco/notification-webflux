@@ -4,6 +4,6 @@ import dev.alvartaco.notifications.model.Message;
 
 interface IMessageService {
 
-    public void notifyUsers(Message message) throws Exception;
+    public void notify(Message message) throws Exception;
 
 }

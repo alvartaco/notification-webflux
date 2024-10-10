@@ -1,6 +1,6 @@
 package dev.alvartaco.notifications.notificationengine.test;
 
-import dev.alvartaco.notifications.model.ChannelType;
+import dev.alvartaco.notifications.model.ConstChannelTypes;
 import dev.alvartaco.notifications.notificationengine.factories.NotificationEngineFactory;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
@@ -20,8 +20,8 @@ public class NotificationEngineExecutorTest {
 
     @PostConstruct
     public void test() {
-        notificationEngineFactory.execute(ChannelType.EMAIL); // prints `Sending email`
-        notificationEngineFactory.execute(ChannelType.PUSH_NOTIFICATION); // prints `Sending push notification`
-        notificationEngineFactory.execute(ChannelType.SMS); // prints `Sending SMS`
+        notificationEngineFactory.execute(ConstChannelTypes.EMAIL); // prints `Sending email`
+        notificationEngineFactory.execute(ConstChannelTypes.PUSH_NOTIFICATION); // prints `Sending push notification`
+        notificationEngineFactory.execute(ConstChannelTypes.SMS); // prints `Sending SMS`
     }
 }

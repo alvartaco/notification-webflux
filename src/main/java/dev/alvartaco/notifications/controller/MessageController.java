@@ -109,7 +109,7 @@ public class  MessageController {
              * Firing the notification
              */
             log.info("#NOTIFICATIONS - Sending the Notification og message creation");
-            messageService.notifyUsers(message);
+            messageService.notify(message);
 
         } catch (MessageException | CategoryException e) {
             log.error("#NOTIFICATIONS - Error saving message/message/create, fwd to index.");

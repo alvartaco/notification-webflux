@@ -1,7 +1,7 @@
 package dev.alvartaco.notifications.repository;
 
 import dev.alvartaco.notifications.exception.CategoryException;
-import dev.alvartaco.notifications.model.ChannelType;
+import dev.alvartaco.notifications.model.ConstChannelTypes;
 import dev.alvartaco.notifications.model.User;
 import dev.alvartaco.notifications.service.CategoryService;
 import jakarta.annotation.PostConstruct;
@@ -44,7 +44,7 @@ public class UserRepository {
                     "alejandro.sporty@alvartaco.dev",
                     "+5492616803201",
                     List.of(categoryService.getCategoryByCategoryId((short) 3)),
-                    List.of(ChannelType.SMS)
+                    List.of(ConstChannelTypes.SMS)
             ));
             users.add(new User(
                     2,
@@ -52,7 +52,7 @@ public class UserRepository {
                     "alejandro.fintech@alvartaco.dev",
                     "+5492616803202",
                     List.of(categoryService.getCategoryByCategoryId((short) 1)),
-                    List.of(ChannelType.EMAIL)
+                    List.of(ConstChannelTypes.EMAIL)
 
             ));
             users.add(new User(
@@ -61,7 +61,7 @@ public class UserRepository {
                     "alejandro.cine@alvartaco.dev",
                     "+5492616803203",
                     List.of(categoryService.getCategoryByCategoryId((short) 2)),
-                    List.of(ChannelType.PUSH_NOTIFICATION)
+                    List.of(ConstChannelTypes.PUSH_NOTIFICATION)
             ));
             users.add(new User(
                     4,
@@ -74,9 +74,9 @@ public class UserRepository {
                             categoryService.getCategoryByCategoryId((short) 2)
                     ),
                     Arrays.asList(
-                            ChannelType.EMAIL,
-                            ChannelType.SMS,
-                            ChannelType.PUSH_NOTIFICATION
+                            ConstChannelTypes.EMAIL,
+                            ConstChannelTypes.SMS,
+                            ConstChannelTypes.PUSH_NOTIFICATION
                     )
             ));
             log.info("#NOTIFICATIONS - Users {}",  users);
