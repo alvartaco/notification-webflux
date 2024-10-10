@@ -1,5 +1,6 @@
 package dev.alvartaco.notifications.service;
 
+import dev.alvartaco.notifications.exception.CategoryException;
 import dev.alvartaco.notifications.exception.MessageException;
 import dev.alvartaco.notifications.exception.NotificationException;
 import dev.alvartaco.notifications.model.Message;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Transactional
 @Service
 public class MessageService implements IMessageService{
@@ -18,11 +21,14 @@ public class MessageService implements IMessageService{
     private static final Logger log = LoggerFactory.getLogger(MessageService.class);
     private final IMessageRepository iMessageRepository;
     private final NotificationService notificationService;
+    private final CategoryService categoryService;
     public MessageService(@Qualifier("jdbcClientMessageRepository")
                           IMessageRepository iMessageRepository,
+                          CategoryService categoryService,
                           NotificationService notificationService) {
         this.iMessageRepository = iMessageRepository;
         this.notificationService = notificationService;
+        this.categoryService = categoryService;
     }
 
     /**
@@ -34,15 +40,36 @@ public class MessageService implements IMessageService{
     }
 
     @Override
-    public void notify(Message message) throws NotificationException {
+    public void notify(String categoryId, String messageBody) throws NotificationException {
+
+        /**
+         * Review received parameters
+         */
 
         try {
-            log.info("#NOTIFICATIONS - Going to notify(Message message)");
+            log.info("#NOTIFICATIONS - START to save message.");
+
+            Message message = new Message(
+                    null,
+                    categoryService.getCategoryByCategoryId(Short.valueOf(categoryId)),
+                    messageBody.trim(),
+                    LocalDateTime.now());
+
+            log.info("#NOTIFICATIONS - Message {}",  message);
+
+            message = new Message(
+                    create(message),
+                    message.category(),
+                    message.messageBody(),
+                    message.createdOn()
+            );
+
+            log.info("#NOTIFICATIONS - notify(Message message)");
             notificationService.notify(message);
-        } catch (NotificationException e) {
-            log.error("#NOTIFICATIONS - Error  notificationService.create(message)");
+
+        } catch (Exception e) {
+            log.error("#NOTIFICATIONS - Error saving message.");
             throw new NotificationException(e.toString());
         }
-
     }
 }

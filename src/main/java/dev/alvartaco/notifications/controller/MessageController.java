@@ -2,7 +2,7 @@ package dev.alvartaco.notifications.controller;
 
 import dev.alvartaco.notifications.dto.CategoryDTO;
 import dev.alvartaco.notifications.exception.CategoryException;
-import dev.alvartaco.notifications.model.Message;
+import dev.alvartaco.notifications.exception.NotificationException;
 import dev.alvartaco.notifications.service.CategoryService;
 import dev.alvartaco.notifications.service.MessageService;
 import org.slf4j.Logger;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -70,7 +69,6 @@ public class  MessageController {
                          Model model) {
 
         log.info("#NOTIFICATIONS - START /message/create");
-
         /*
          * Validation for existing in Database categoryId
          */
@@ -86,35 +84,13 @@ public class  MessageController {
             return "index";
         }
 
+        log.info("#NOTIFICATIONS - Sending the Notification of message creation");
         try {
-            log.info("#NOTIFICATIONS - START to save message.");
-
-            Message message = new Message(
-                    null,
-                    categoryService.getCategoryByCategoryId(Short.valueOf(categoryId)),
-                    messageBody.trim(),
-                    LocalDateTime.now());
-
-            log.info("#NOTIFICATIONS - Message {}",  message);
-
-            message = new Message(
-                messageService.create(message),
-                message.category(),
-                message.messageBody(),
-                message.createdOn()
-                );
-
-            /*
-             * Firing the notification Flow
-             */
-            log.info("#NOTIFICATIONS - Sending the Notification of message creation");
-            messageService.notify(message);
-
-        } catch (Exception e) {
-            log.error("#NOTIFICATIONS - Error saving message/message/create, fwd to index.");
-            return message("ERROR saving message!!!", "", model);
+            messageService.notify(categoryId, messageBody);
+        } catch (NotificationException e) {
+            log.error("#NOTIFICATIONS - Error - messageService.notify(categoryId, messageBody); ");
+            return message("Message ERROR NOT Saved..!", "", model);
         }
-
         log.info("#NOTIFICATIONS - END /message/create");
 
         return message("", "Message Saved..!", model);
