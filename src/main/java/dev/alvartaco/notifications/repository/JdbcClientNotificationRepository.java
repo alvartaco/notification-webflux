@@ -1,7 +1,6 @@
 package dev.alvartaco.notifications.repository;
 
 import dev.alvartaco.notifications.dto.NotificationDTO;
-import dev.alvartaco.notifications.exception.MessageException;
 import dev.alvartaco.notifications.exception.NotificationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

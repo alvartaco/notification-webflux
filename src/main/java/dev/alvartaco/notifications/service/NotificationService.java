@@ -93,7 +93,7 @@ public class NotificationService {
     }
 
     /**
-     * I saves a Notification
+     * It saves a Notification
      */
     public Integer create(@Valid NotificationDTO notificationDTO) throws NotificationException {
            return iNotificationRepository.create(notificationDTO);

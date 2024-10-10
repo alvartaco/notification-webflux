@@ -17,8 +17,9 @@ public class NotificationController {
 
     @GetMapping("/notifications")
     public String message(
-            @RequestParam(name="name", required=false, defaultValue="World") String name,
-            Model model) {
+            @RequestParam(name="name", required=false, defaultValue="World")
+                String name,
+                Model model) {
         log.info("#NOTIFICATIONS - INSIDE /notifications");
         return "notifications/index";
     }

@@ -1,9 +1,6 @@
 package dev.alvartaco.notifications.api;
 
 import dev.alvartaco.notifications.dto.MessageDTO;
-import dev.alvartaco.notifications.exception.MessageException;
-import dev.alvartaco.notifications.exception.NotificationException;
-import dev.alvartaco.notifications.model.Message;
 import dev.alvartaco.notifications.service.CategoryService;
 import dev.alvartaco.notifications.service.MessageService;
 import jakarta.validation.Valid;
@@ -30,7 +27,6 @@ public class ApiMessageController {
     }
 
     /**
-
      * It can be tested with:
      * $ curl -X POST localhost:8088/api/messages -H 'Content-type:application/json' -d '{"categoryId": "2", "messageBody": "the boddy"}'
      * @param messageDTO

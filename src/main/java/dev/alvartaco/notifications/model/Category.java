@@ -1,7 +1,5 @@
 package dev.alvartaco.notifications.model;
 
-import java.util.List;
-
 /**
  * It specifies the Category / channel through which the Users
  * would like to be notified, such as SMS, Email or Push Notification.
