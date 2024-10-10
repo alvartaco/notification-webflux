@@ -50,7 +50,26 @@ As a user interface, you must display 2 main elements.
 
     • Message. Text area, confirm that the message is not empty.
 
-2. Log history. A list of all data records in the log, sorted from newest to oldest.
+<!-- 2. Log history. A list of all data records in the log, sorted from newest to oldest.-->
+
+-----------------------------------------------------------------------------------------------
+
+The application uses:
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+-> JDBC Client for DB Connection - H2
+-> Thymeleaf Java engine  for processing and creating HTML, XML, JavaScript, CSS and text
+-> HTMX a small JavaScript library that allows you to use custom attributes in HTML
+-> Dessihn Pattern: Factory / Strategy for different notification channels like SMS, e-mail, Push notifications. And Observer for the main objetive of Users receiving updates in their subsctipyed Message Categories.
+--> Git / Github :D and Git Flow
+
 
 ![img.png](img.png)
 
