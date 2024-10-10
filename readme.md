@@ -1,4 +1,4 @@
-Notification Test
+Notification App.
 
 It is required to create a system capable of receiving messages, which will have a
 category and the body of the message. These messages will need to be forwarded to
@@ -50,7 +50,36 @@ As a user interface, you must display 2 main elements.
 
     • Message. Text area, confirm that the message is not empty.
 
-2. Log history. A list of all data records in the log, sorted from newest to oldest.
+<!-- 2. Log history. A list of all data records in the log, sorted from newest to oldest.-->
+
+-----------------------------------------------------------------------------------------------
+
+For buildeng the application uses:
+
+      .   ____          _            __ _ _
+     /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+    ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+     \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+      '  |____| .__|_| |_|_| |_\__, | / / / /
+     =========|_|==============|___/=/_/_/_/
+     
+     :: Spring Boot ::                (v3.3.4)
+
+    -> MAVEN
+   
+    -> JDBC Client for DB Connection - H2
+
+    -> Thymeleaf Java engine  for processing and creating HTML, XML, JavaScript, CSS and text
+
+    -> HTMX a small JavaScript library that allows you to use custom attributes in HTML
+
+    -> Dessihn Pattern: Factory / Strategy for different notification channels like SMS, e-mail, Push notifications. 
+    And Observer for the main objetive of Users receiving updates in their subsctipyed Message Categories.
+
+    -> Git / Github :D and Git Flow
+
+    -> Responsive Flex Design
+
 
 ![img.png](img.png)
 
@@ -63,5 +92,5 @@ Adding some testing results of the first Iteration:
 ![messageTable](https://github.com/user-attachments/assets/ad6966c4-e187-4451-8d56-cbc6838baf67)
 ![notificationTable](https://github.com/user-attachments/assets/950ed279-7d70-4de3-bfe3-897bf3cc285a)
 
-The Log and some json files, related to users and categories are also uploades in the root/xDocuments
+The Log and some json files, related to users and categories are also uploaded in the root/xDocuments
 
