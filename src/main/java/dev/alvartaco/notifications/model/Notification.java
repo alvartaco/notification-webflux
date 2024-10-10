@@ -1,15 +1,26 @@
 package dev.alvartaco.notifications.model;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDateTime;
 
+/**
+ * Notification Class, the big one
+ */
 public class Notification {
+    @NotNull
     private Integer notificationId;
+    @NotEmpty
     private Message message;
+    @NotNull
     private User user;
+    @NotEmpty
     private String channelType;
+    @NotNull
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
-    private Integer retryNumber;
+    private Short retryNumber;
 
     public Notification(Integer notificationId,
                         Message message,
@@ -17,7 +28,7 @@ public class Notification {
                         String channelType,
                         LocalDateTime createdOn,
                         LocalDateTime updatedOn,
-                        Integer retryNumber) {
+                        Short retryNumber) {
         this.notificationId = notificationId;
         this.message = message;
         this.user = user;
@@ -51,11 +62,11 @@ public class Notification {
         this.updatedOn = updatedOn;
     }
 
-    public Integer getRetryNumber() {
+    public Short getRetryNumber() {
         return retryNumber;
     }
 
-    public void setRetryNumber(Integer retryNumber) {
+    public void setRetryNumber(Short retryNumber) {
         this.retryNumber = retryNumber;
     }
 

@@ -1,10 +1,8 @@
 package dev.alvartaco.notifications.service;
 
 import dev.alvartaco.notifications.exception.MessageException;
+import dev.alvartaco.notifications.exception.NotificationException;
 import dev.alvartaco.notifications.model.Message;
-import dev.alvartaco.notifications.model.User;
-import dev.alvartaco.notifications.notificationengine.INotificationEngineService;
-import dev.alvartaco.notifications.notificationengine.factories.NotificationEngineFactory;
 import dev.alvartaco.notifications.repository.IMessageRepository;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -13,20 +11,18 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Transactional
 @Service
 public class MessageService implements IMessageService{
 
     private static final Logger log = LoggerFactory.getLogger(MessageService.class);
     private final IMessageRepository iMessageRepository;
-    private final UserService userService;
+    private final NotificationService notificationService;
     public MessageService(@Qualifier("jdbcClientMessageRepository")
                           IMessageRepository iMessageRepository,
-                          UserService userService) {
+                          NotificationService notificationService) {
         this.iMessageRepository = iMessageRepository;
-        this.userService = userService;
+        this.notificationService = notificationService;
     }
 
     /**
@@ -37,16 +33,13 @@ public class MessageService implements IMessageService{
     }
 
     @Override
-    public void notify(Message message) throws MessageException {
+    public void notify(Message message) throws NotificationException {
 
-        List<User> users = userService.getUsersByCategoryId(message.category().getCategoryId());
-        if (users != null) {
-            log.info("#NOTIFICATIONS - Users {}",  users);
-
-            log.info("#NOTIFICATIONS - TODO CREATE NOTIFICATION" );
-
-            log.info("#NOTIFICATIONS - Sending corresponding dummy notification to the message " );
-
+        try {
+            notificationService.notify(message);
+        } catch (NotificationException e) {
+            log.error("#NOTIFICATIONS - Error  notificationService.create(message)");
+            throw new NotificationException(e.toString());
         }
 
     }

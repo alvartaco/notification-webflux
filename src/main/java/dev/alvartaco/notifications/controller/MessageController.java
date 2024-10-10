@@ -2,7 +2,6 @@ package dev.alvartaco.notifications.controller;
 
 import dev.alvartaco.notifications.dto.CategoryDTO;
 import dev.alvartaco.notifications.exception.CategoryException;
-import dev.alvartaco.notifications.exception.MessageException;
 import dev.alvartaco.notifications.model.Message;
 import dev.alvartaco.notifications.service.CategoryService;
 import dev.alvartaco.notifications.service.MessageService;
@@ -111,7 +110,7 @@ public class  MessageController {
             log.info("#NOTIFICATIONS - Sending the Notification og message creation");
             messageService.notify(message);
 
-        } catch (MessageException | CategoryException e) {
+        } catch (Exception e) {
             log.error("#NOTIFICATIONS - Error saving message/message/create, fwd to index.");
             return message("ERROR saving message!!!", "", model);
         }

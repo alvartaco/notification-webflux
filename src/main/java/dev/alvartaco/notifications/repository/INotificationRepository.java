@@ -1,7 +1,7 @@
 package dev.alvartaco.notifications.repository;
 
+import dev.alvartaco.notifications.dto.NotificationDTO;
 import dev.alvartaco.notifications.exception.NotificationException;
-import dev.alvartaco.notifications.model.Notification;
 import jakarta.validation.Valid;
 
 /**
@@ -9,7 +9,7 @@ import jakarta.validation.Valid;
  */
 public interface INotificationRepository {
 
-        Integer create(@Valid Notification notification) throws NotificationException;
+        Integer create(@Valid NotificationDTO notificationDTO) throws NotificationException;
         Integer count() throws NotificationException;
 
 }

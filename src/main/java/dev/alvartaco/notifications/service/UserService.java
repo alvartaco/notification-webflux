@@ -1,5 +1,6 @@
 package dev.alvartaco.notifications.service;
 
+import dev.alvartaco.notifications.model.ConstChannelTypes;
 import dev.alvartaco.notifications.model.User;
 import dev.alvartaco.notifications.repository.UserRepository;
 import org.slf4j.Logger;
@@ -30,6 +31,10 @@ public class UserService{
                         .anyMatch(category -> category.getCategoryId() == categoryId )
             )
             .toList();
-
+    }
+    public List<String> getUserChannelTypes(User user){
+        return  user.userChannels()
+                    .stream()
+                    .toList();
     }
 }
