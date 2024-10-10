@@ -53,3 +53,15 @@ As a user interface, you must display 2 main elements.
 2. Log history. A list of all data records in the log, sorted from newest to oldest.
 
 ![img.png](img.png)
+
+
+20241010
+Adding some testing results of the first Iteration:
+
+
+![categoryTable](https://github.com/user-attachments/assets/cbddbf3c-6f00-4518-9d6c-15b82f4d867c)
+![messageTable](https://github.com/user-attachments/assets/ad6966c4-e187-4451-8d56-cbc6838baf67)
+![notificationTable](https://github.com/user-attachments/assets/950ed279-7d70-4de3-bfe3-897bf3cc285a)
+
+The Log and some json files, related to users and categories are also uploades in the root/xDocuments
+
