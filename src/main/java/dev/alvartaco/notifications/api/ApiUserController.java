@@ -1,4 +1,4 @@
-package dev.alvartaco.notifications.controller;
+package dev.alvartaco.notifications.api;
 
 import dev.alvartaco.notifications.model.User;
 import dev.alvartaco.notifications.repository.UserRepository;
@@ -13,16 +13,16 @@ import java.util.List;
  * Rest Controller intended to test/view in the browser the List of loaded users
  */
 @RestController
-public class UserController {
+public class ApiUserController {
 
-    private static final Logger log = LoggerFactory.getLogger(UserController.class);
+    private static final Logger log = LoggerFactory.getLogger(ApiUserController.class);
 
     private final UserRepository usersRepository;
-    public UserController(UserRepository usersRepository) {
+    public ApiUserController(UserRepository usersRepository) {
         this.usersRepository = usersRepository;
     }
 
-    @GetMapping("/users")
+    @GetMapping("/api/users")
     List<User> findAll() {
         log.info("#NOTIFICATIONS - INSIDE /users");
         return usersRepository.findAll();

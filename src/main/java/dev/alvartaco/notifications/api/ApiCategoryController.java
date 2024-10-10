@@ -1,4 +1,4 @@
-package dev.alvartaco.notifications.controller;
+package dev.alvartaco.notifications.api;
 
 import dev.alvartaco.notifications.dto.CategoryDTO;
 import dev.alvartaco.notifications.exception.CategoryException;
@@ -16,21 +16,21 @@ import java.util.List;
  * to view in the browser the List of loaded categories
  */
 @RestController
-public class CategoryController {
+public class ApiCategoryController {
 
-    private static final Logger log = LoggerFactory.getLogger(CategoryController.class);
+    private static final Logger log = LoggerFactory.getLogger(ApiCategoryController.class);
     private final CategoryService categoryService;
-    public CategoryController(CategoryService categoryService) {
+    public ApiCategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/categories")
+    @GetMapping("/api/categories")
     List<CategoryDTO> getAllByCategoryNameAsc() throws CategoryException {
         log.info("#NOTIFICATIONS - INSIDE /categories");
         return categoryService.getAllCategoryDTOsByCategoryNameAsc();
     }
 
-    @GetMapping("/categories/{categoryId}")
+    @GetMapping("/api/categories/{categoryId}")
     CategoryDTO getCategoryByCategoryId(@PathVariable short categoryId) throws CategoryException {
         log.info("#NOTIFICATIONS - INSIDE /categories/{categoryId}");
         return categoryService.getCategoryDTOByCategoryId((short) categoryId);

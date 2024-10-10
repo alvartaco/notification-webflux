@@ -18,5 +18,4 @@ public class HomeController {
         log.info("#NOTIFICATIONS - INSIDE /");
         return "index";
     }
-
 }
