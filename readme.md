@@ -54,7 +54,7 @@ As a user interface, you must display 2 main elements.
 
 -----------------------------------------------------------------------------------------------
 
-The application uses:
+For buildeng the application uses:
 
       .   ____          _            __ _ _
      /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -62,8 +62,11 @@ The application uses:
      \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
       '  |____| .__|_| |_|_| |_\__, | / / / /
      =========|_|==============|___/=/_/_/_/
+     
      :: Spring Boot ::                (v3.3.4)
 
+    -> MAVEN
+   
     -> JDBC Client for DB Connection - H2
 
     -> Thymeleaf Java engine  for processing and creating HTML, XML, JavaScript, CSS and text
