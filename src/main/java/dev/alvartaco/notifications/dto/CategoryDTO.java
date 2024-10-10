@@ -1,7 +1,7 @@
 package dev.alvartaco.notifications.dto;
 
 /**
- * DTO Created because Categories are nor Records
+ * DTO Created because Categories are no Records
  */
 public class CategoryDTO {
 
