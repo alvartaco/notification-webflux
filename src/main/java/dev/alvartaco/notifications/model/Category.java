@@ -1,5 +1,8 @@
 package dev.alvartaco.notifications.model;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Positive;
+
 /**
  * It specifies the Category / channel through which the Users
  * would like to be notified, such as SMS, Email or Push Notification.
@@ -7,9 +10,7 @@ package dev.alvartaco.notifications.model;
  * • Sports
  * • Finance
  * • Movies
- *
  *     Future Enhancement Fields.
- *
  *     private String locCategoryNameKey;
  *     private Integer categoryOrder;
  *     private LocalDateTime createDateTime;
@@ -18,8 +19,9 @@ package dev.alvartaco.notifications.model;
  *     private boolean categoryEnabled;
  */
 public class Category {
-
+    @Positive
     private Short categoryId;
+    @NotEmpty
     private String categoryName;
 
     public Category(Short categoryId, String categoryName) {

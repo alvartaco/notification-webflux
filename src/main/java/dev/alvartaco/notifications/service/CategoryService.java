@@ -60,7 +60,7 @@ public class CategoryService {
      * Used to map important fields to CategoryDTO
      * @return CategoryDTO
      */
-    private CategoryDTO mapToDTO(Category category) {
+    public CategoryDTO mapToDTO(Category category) {
         return new CategoryDTO(
                 category.getCategoryId(),
                 category.getCategoryName()
