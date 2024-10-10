@@ -1,4 +1,4 @@
-Notification Test
+Notification App.
 
 It is required to create a system capable of receiving messages, which will have a
 category and the body of the message. These messages will need to be forwarded to
