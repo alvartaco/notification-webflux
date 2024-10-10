@@ -92,5 +92,5 @@ Adding some testing results of the first Iteration:
 ![messageTable](https://github.com/user-attachments/assets/ad6966c4-e187-4451-8d56-cbc6838baf67)
 ![notificationTable](https://github.com/user-attachments/assets/950ed279-7d70-4de3-bfe3-897bf3cc285a)
 
-The Log and some json files, related to users and categories are also uploades in the root/xDocuments
+The Log and some json files, related to users and categories are also uploaded in the root/xDocuments
 
