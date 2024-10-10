@@ -18,7 +18,7 @@ drop TABLE IF EXISTS Category;
 --    private boolean categoryEnabled;
 --
 create table if not exists Category (
-   category_id smallint not null,
+   category_id smallint AUTO_INCREMENT not null,
    category_name varchar(30) not null,
    primary key (category_id)
 );
@@ -38,7 +38,7 @@ create table if not exists Category (
 --    private Integer userId;
 --
 create table if not exists Message (
-   message_id int not null,
+   message_id int AUTO_INCREMENT not null,
    category_id smallint not null,
    message_body text not null,
    message_created_on timestamp not null,

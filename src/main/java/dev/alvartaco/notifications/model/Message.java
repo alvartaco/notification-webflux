@@ -5,6 +5,17 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
+/**
+ *
+ * records are considered DTO
+ * that is because it does not have one
+ *
+ * @param messageId
+ * @param category
+ * @param messageBody
+ * @param createdOn
+ *
+ */
 public record Message (
         Integer messageId,
         @NotNull

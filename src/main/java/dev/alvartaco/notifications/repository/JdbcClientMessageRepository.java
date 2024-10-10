@@ -6,6 +6,8 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.simple.JdbcClient;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
@@ -16,11 +18,11 @@ import java.util.Optional;
  * Repository JDBC Client for Messages
  */
 @Repository
-public class JdbcMessageRepository implements IMessageRepository{
+public class JdbcClientMessageRepository implements IMessageRepository{
 
-    private static final Logger log = LoggerFactory.getLogger(JdbcMessageRepository.class);
+    private static final Logger log = LoggerFactory.getLogger(JdbcClientMessageRepository.class);
     private final JdbcClient jdbcClient;
-    public JdbcMessageRepository(JdbcClient jdbcClient) {
+    public JdbcClientMessageRepository(JdbcClient jdbcClient) {
         this.jdbcClient = jdbcClient;
     }
 
@@ -60,33 +62,31 @@ public class JdbcMessageRepository implements IMessageRepository{
     /**
      * It inserts a new message
      */
-    public void create(@Valid Message message) throws MessageException{
+    public Integer create(@Valid Message message) throws MessageException{
         try {
-            if (count() > 0) {
-                var updated = jdbcClient.sql("INSERT INTO message(message_id, category_id, message_body, message_created_on) " +
-                                "values ( (SELECT ((message_id)+1) FROM message ORDER BY message_id DESC LIMIT 1 )," +
-                                "?,?,?)")
-                        .params(List.of(message.category().getCategoryId(), message.messageBody(), message.createdOn()))
-                        .update();
-                Assert.state(updated == 1, "Failed to create Message, table is empty");
-            } else {
-                var firstRow = jdbcClient.sql("INSERT INTO message(message_id, category_id, message_body, message_created_on) " +
-                                "values(1,?,?,?)")
-                        .params(List.of(message.category().getCategoryId(), message.messageBody(), message.createdOn()))
-                        .update();
-                Assert.state(firstRow == 1, "Failed to create Message.");
-            }
+
+            KeyHolder keyHolder = new GeneratedKeyHolder();
+
+            var updated = jdbcClient.sql("INSERT INTO message(category_id, message_body, message_created_on) " +
+                            "values (?,?,?)")
+                    .params(List.of(message.category().getCategoryId(), message.messageBody(), message.createdOn()))
+                    .update(keyHolder);
+            Assert.state(updated == 1, "Failed to create Message, table is empty");
+
+            log.info("#NOTIFICATIONS - END save message.");
+
+            return (Integer) keyHolder.getKey();
+
         } catch (Exception e) {
             log.error("#NOTIFICATIONS - create(Message message) ");
             throw new MessageException(e.toString());
         }
-        log.info("#NOTIFICATIONS - END save message.");
     }
 
     /**
      * Number of Message Rows in the table
      */
-    public int count() throws MessageException {
+    public Integer count() throws MessageException {
         try {
             return jdbcClient.sql("select message_id from message").query().listOfRows().size();
         } catch (Exception e) {

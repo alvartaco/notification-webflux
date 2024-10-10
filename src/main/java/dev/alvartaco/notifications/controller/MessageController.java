@@ -88,6 +88,7 @@ public class  MessageController {
         }
 
         try {
+            log.info("#NOTIFICATIONS - START to save message.");
 
             Message message = new Message(
                     null,
@@ -95,9 +96,20 @@ public class  MessageController {
                     messageBody.trim(),
                     LocalDateTime.now());
 
-            log.info("#NOTIFICATIONS - START to save message.");
             log.info("#NOTIFICATIONS - Message {}",  message);
-            messageService.create(message);
+
+            message = new Message(
+                messageService.create(message),
+                message.category(),
+                message.messageBody(),
+                message.createdOn()
+                );
+
+            /*
+             * Firing the notification
+             */
+            log.info("#NOTIFICATIONS - Sending the Notification og message creation");
+            messageService.notifyUsers(message);
 
         } catch (MessageException | CategoryException e) {
             log.error("#NOTIFICATIONS - Error saving message/message/create, fwd to index.");
