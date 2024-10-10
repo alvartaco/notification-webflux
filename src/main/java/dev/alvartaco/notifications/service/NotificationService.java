@@ -33,6 +33,12 @@ public class NotificationService {
         this.notificationEngineFactory = notificationEngineFactory;
     }
 
+    /**
+     * Method that is fired to notify de Subscribers
+     * after a subject changes, a new message was created
+     * @param message
+     * @throws NotificationException
+     */
     public void notify(Message message) throws NotificationException {
 
         NotificationDTO notificationDTO ;
@@ -45,12 +51,17 @@ public class NotificationService {
 
             List<String> userChannelTypes;
 
+            // Loop the users having the message category of the message
+            // Finance, sport, movies
             for(User user : users) {
 
+                // Retrieves User's chanel of notification
+                // SMS, Email, Push notifications
                 userChannelTypes = userService.getUserChannelTypes(user);
 
                 if (userChannelTypes != null) {
 
+                    // Creates the corresponding notifications in the DB
                     for(String channelType : userChannelTypes) {
 
                         log.info("#NOTIFICATIONS - CREATE NOTIFICATION");
@@ -68,6 +79,8 @@ public class NotificationService {
 
                         notificationId = create(notificationDTO);
 
+                        // If the notification was created in the DB
+                        // The corresponding notification message is sent to the user
                         if (notificationId > 0) {
                              log.info("#NOTIFICATIONS - Start sending corresponding dummy notification to the message " );
                                  notificationEngineFactory.execute(channelType);
@@ -80,11 +93,9 @@ public class NotificationService {
     }
 
     /**
-     * Main entry point to save Notification
+     * I saves a Notification
      */
     public Integer create(@Valid NotificationDTO notificationDTO) throws NotificationException {
            return iNotificationRepository.create(notificationDTO);
     }
-
-
 }

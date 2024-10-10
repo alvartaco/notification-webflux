@@ -22,5 +22,4 @@ public record User(
         String userPhoneNumber,
         List<Category> userSubscriptions,
         List<String> userChannels
-) {
-}
+) {}

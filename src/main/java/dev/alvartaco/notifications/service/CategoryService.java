@@ -48,8 +48,10 @@ public class CategoryService {
             for (Category category : iCategoryRepository.findAllByCategoryNameAsc()) {
                 categoriesDTO.add(mapToDTO(category));
             }
+            log.info("#NOTIFICATIONS - OK getAllCategoryDTOsByCategoryNameAsc().");
             return categoriesDTO;
         } catch ( Exception e) {
+            log.error("#NOTIFICATIONS - ERROR getAllCategoryDTOsByCategoryNameAsc().");
             throw new CategoryException("Category not found");
         }
     }

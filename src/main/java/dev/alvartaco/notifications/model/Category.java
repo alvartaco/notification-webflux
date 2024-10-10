@@ -44,5 +44,4 @@ public class Category {
     public void setCategoryId(Short categoryId) {
         this.categoryId = categoryId;
     }
-
 }

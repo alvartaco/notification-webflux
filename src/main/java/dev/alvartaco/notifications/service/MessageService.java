@@ -29,6 +29,7 @@ public class MessageService implements IMessageService{
      * Main entry point to save messages
      */
     public Integer create(@Valid Message message) throws MessageException {
+        log.info("#NOTIFICATIONS - Going to iMessageRepository.create(message).");
         return iMessageRepository.create(message);
     }
 
@@ -36,6 +37,7 @@ public class MessageService implements IMessageService{
     public void notify(Message message) throws NotificationException {
 
         try {
+            log.info("#NOTIFICATIONS - Going to notify(Message message)");
             notificationService.notify(message);
         } catch (NotificationException e) {
             log.error("#NOTIFICATIONS - Error  notificationService.create(message)");

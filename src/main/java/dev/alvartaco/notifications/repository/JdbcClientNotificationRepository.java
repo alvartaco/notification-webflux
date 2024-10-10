@@ -1,6 +1,7 @@
 package dev.alvartaco.notifications.repository;
 
 import dev.alvartaco.notifications.dto.NotificationDTO;
+import dev.alvartaco.notifications.exception.MessageException;
 import dev.alvartaco.notifications.exception.NotificationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,25 +30,6 @@ public class JdbcClientNotificationRepository implements INotificationRepository
     public Integer create(NotificationDTO notificationDTO) throws NotificationException {
         try {
 
-
-
-            /*            List<User> users = userService.getUsersByCategoryId(message.category().getCategoryId());
-            log.info("#NOTIFICATIONS - Users {}",  users);
-            if (users != null) {
-                log.info("#NOTIFICATIONS - TODO CREATE NOTIFICATION" );
-
-                NotificationDTO notificationDTO = new NotificationDTO(
-                )
-
-                log.info("#NOTIFICATIONS - Sending corresponding dummy notification to the message " );
-
-            }
-            */
-
-
-
-
-
             KeyHolder keyHolder = new GeneratedKeyHolder();
 
             var updated = jdbcClient.sql("INSERT INTO notification(" +
@@ -69,6 +51,7 @@ public class JdbcClientNotificationRepository implements INotificationRepository
                             notificationDTO.getRetryNumber()
                     ))
                     .update(keyHolder);
+
             Assert.state(updated == 1, "Failed to create Notification, table is empty");
 
             log.info("#NOTIFICATIONS - END save Notification.");
@@ -83,6 +66,11 @@ public class JdbcClientNotificationRepository implements INotificationRepository
 
     @Override
     public Integer count() throws NotificationException {
-        return 0;
+        try {
+            return jdbcClient.sql("select notification_id from notification").query().listOfRows().size();
+        } catch (Exception e) {
+            log.error("#NOTIFICATIONS - count() ");
+            throw new NotificationException(e.toString());
+        }
     }
 }

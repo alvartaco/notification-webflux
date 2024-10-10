@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * Controller for message creation handling
+ * Controller for message creation handling Page
  */
 @Controller
 public class  MessageController {
@@ -105,9 +105,9 @@ public class  MessageController {
                 );
 
             /*
-             * Firing the notification
+             * Firing the notification Flow
              */
-            log.info("#NOTIFICATIONS - Sending the Notification og message creation");
+            log.info("#NOTIFICATIONS - Sending the Notification of message creation");
             messageService.notify(message);
 
         } catch (Exception e) {
