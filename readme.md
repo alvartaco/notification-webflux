@@ -73,7 +73,7 @@ For buildeng the application uses:
 
     -> HTMX a small JavaScript library that allows you to use custom attributes in HTML
 
-    -> Dessihn Pattern: Factory / Strategy for different notification channels like SMS, e-mail, Push notifications. 
+    -> Dessign Pattern: Factory / Strategy for different notification channels like SMS, e-mail, Push notifications. 
     And Observer for the main objetive of Users receiving updates in their subsctipyed Message Categories.
 
     -> Git / Github :D and Git Flow
@@ -81,6 +81,8 @@ For buildeng the application uses:
     -> Responsive Flex Design
 
     -> API REST
+
+    -> Junit for Tests
 
 
 ![img.png](img.png)
