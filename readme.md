@@ -98,6 +98,6 @@ Adding some testing results of the first Iteration:
 
 The Log and some json files, related to users and categories are also uploaded in the root/xDocuments
 
-In order to test creation of Messages, that then fire the Notifications the Users, using the REST API, this command can be executed:
+In order to test creation of Messages, that fire the Notifications the User's that are Subscribed, using the REST API; this command can be executed:
 
     curl -X POST localhost:8088/api/messages -H 'Content-type:application/json' -d '{"categoryId": "2", "messageBody": "the boddy"}'
