@@ -40,11 +40,25 @@ public class MessageService implements IMessageService{
     }
 
     @Override
-    public void notify(String categoryId, String messageBody) throws NotificationException {
+    public void notify(String categoryId, String messageBody) throws NotificationException, MessageException {
 
-        /**
-         * Review received parameters
+        /*
+         * Validation for existing in Database categoryId
+         * Validating messageBody
          */
+        try {
+            if (categoryService.getAllCategoryDTOsByCategoryNameAsc().stream().noneMatch(dto -> dto.getCategoryId() == Short.parseShort(categoryId))) {
+                log.error("#NOTIFICATIONS - Error categoryId");
+                throw new MessageException("#NOTIFICATIONS - Error categoryId");
+            }
+            if (messageBody == null || messageBody.isEmpty() || messageBody.isBlank()) {
+                log.error("#NOTIFICATIONS - Error messageBody");
+                throw new MessageException("#NOTIFICATIONS - Error messageBody");
+            }
+        } catch (CategoryException e) {
+            log.error("#NOTIFICATIONS - Error notify(String categoryId, String messageBody)");
+            throw new MessageException(e.toString());
+        }
 
         try {
             log.info("#NOTIFICATIONS - START to save message.");

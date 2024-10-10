@@ -2,6 +2,7 @@ package dev.alvartaco.notifications.controller;
 
 import dev.alvartaco.notifications.dto.CategoryDTO;
 import dev.alvartaco.notifications.exception.CategoryException;
+import dev.alvartaco.notifications.exception.MessageException;
 import dev.alvartaco.notifications.exception.NotificationException;
 import dev.alvartaco.notifications.service.CategoryService;
 import dev.alvartaco.notifications.service.MessageService;
@@ -69,17 +70,21 @@ public class  MessageController {
                          Model model) {
 
         log.info("#NOTIFICATIONS - START /message/create");
+
         /*
          * Validation for existing in Database categoryId
+         * Validating messageBody
          */
         try {
             if (categoryService.getAllCategoryDTOsByCategoryNameAsc().stream().noneMatch(dto -> dto.getCategoryId() == Short.parseShort(categoryId))) {
-                // TESTED /
                 log.error("#NOTIFICATIONS - Error with received categoryID /message/create");
                 return message("ERROR with received Message Category!!!", "", model);
             }
+            if (messageBody.isEmpty()) {
+                log.error("#NOTIFICATIONS - Error with received messageBody /message/create");
+                return message("ERROR with received Message Body!!!", "", model);
+            }
         } catch (CategoryException e) {
-            // TESTED //
             log.error("#NOTIFICATIONS - Error getting categories /message/create, fwd to index.");
             return "index";
         }
@@ -87,12 +92,12 @@ public class  MessageController {
         log.info("#NOTIFICATIONS - Sending the Notification of message creation");
         try {
             messageService.notify(categoryId, messageBody);
-        } catch (NotificationException e) {
+        } catch (Exception e) {
             log.error("#NOTIFICATIONS - Error - messageService.notify(categoryId, messageBody); ");
             return message("Message ERROR NOT Saved..!", "", model);
         }
-        log.info("#NOTIFICATIONS - END /message/create");
 
+        log.info("#NOTIFICATIONS - END /message/create");
         return message("", "Message Saved..!", model);
     }
 }
