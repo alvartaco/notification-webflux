@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -139,7 +138,7 @@ public class NotificationService {
      */
     public NotificationDisplayDTO mapDTOToDisplayDTO(NotificationDTO notificationDTO) throws CategoryException {
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         Integer notificationId = notificationDTO.getNotificationId();
         Integer messageId = notificationDTO.getMessageId();
