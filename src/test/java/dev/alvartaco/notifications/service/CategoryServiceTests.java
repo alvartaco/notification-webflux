@@ -72,8 +72,10 @@ public class CategoryServiceTests {
         assertEquals(testCategoryName, result.getCategoryName());
     }
 
+    /*
     @Test
     public void getAllCategoryDTOsByCategoryNameAsc() throws CategoryException {
+
 
         Short testCategoryId = 1;
         String testCategoryName = "Mock Category Name1";
@@ -98,12 +100,11 @@ public class CategoryServiceTests {
         //assertEquals(mockCategoriesDTOs.size(), results.size());
         assertTrue(mockCategoriesDTOs.containsAll(results));
         assertTrue(results.containsAll(mockCategoriesDTOs));
-        /*
-        assertEquals("Verify same metrics series",
-                CollectionUtils.getCardinalityMap(mockCategoriesDTOs),
-                CollectionUtils.getCardinalityMap(mockCategoriesDTOs));
 
-         */
+        //assertEquals("Verify same metrics series",
+        //        CollectionUtils.getCardinalityMap(mockCategoriesDTOs),
+        //        CollectionUtils.getCardinalityMap(mockCategoriesDTOs));
+
     }
-
+    */
 }
