@@ -23,13 +23,14 @@ public class UserService{
      * @return
      */
     public List<User> getUsersByCategoryId(short categoryId){
+        log.info("#NOTIFICATIONS - List<User> getUsersByCategoryId(short categoryId)");
         return usersRepository.findAll().stream()
-            .filter(
-                user -> user.userSubscriptions()
-                        .stream()
-                        .anyMatch(category -> category.getCategoryId() == categoryId )
-            )
-            .toList();
+                .filter(
+                        user -> user.userSubscriptions()
+                                .stream()
+                                .anyMatch(category -> category.getCategoryId() == categoryId )
+                )
+                .toList();
     }
 
     /**
@@ -38,9 +39,10 @@ public class UserService{
      * @return
      */
     public List<String> getUserChannelTypes(User user){
+        log.info("#NOTIFICATIONS - List<String> getUserChannelTypes(User user)");
         return  user.userChannels()
-                    .stream()
-                    .toList();
+                .stream()
+                .toList();
     }
 
     /**
@@ -49,10 +51,11 @@ public class UserService{
      * @return
      */
     public User getUsersByUserId(Integer userId){
+        log.info("#NOTIFICATIONS - public User getUsersByUserId(Integer userId)");
         return usersRepository.findAll().stream()
-          .filter(user -> userId.equals(user.userId()))
-          .findAny()
-          .orElse(null);
+                .filter(user -> userId.equals(user.userId()))
+                .findAny()
+                .orElse(null);
 
     }
 }

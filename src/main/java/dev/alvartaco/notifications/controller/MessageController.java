@@ -37,8 +37,8 @@ public class  MessageController {
      * Entry point for the message creation Form
      */
     @GetMapping("/message")
-    public String message(@RequestParam(name = "error", defaultValue = "") String error,
-                          @RequestParam(name = "message", defaultValue = "") String message,
+    public String message(@RequestParam(defaultValue = "") String error,
+                          @RequestParam(defaultValue = "") String message,
                           Model model) {
 
         log.info("#NOTIFICATIONS - START /message");
@@ -65,8 +65,8 @@ public class  MessageController {
      * Method that calls the service to store the message in the DB
      */
     @PostMapping("/message/create")
-    String createMessage(@RequestParam(name = "categoryId") String categoryId,
-                         @RequestParam(name = "messageBody") String messageBody,
+    String createMessage(@RequestParam String categoryId,
+                         @RequestParam String messageBody,
                          Model model) {
 
         log.info("#NOTIFICATIONS - START /message/create");
