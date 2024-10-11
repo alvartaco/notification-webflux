@@ -66,7 +66,7 @@ public class CategoryServiceTests {
         Category result =
                 categoryService.getCategoryByCategoryId(testCategoryId);
 
-        // Assert Existing categoryId
+        // Assert for  categoryId
         assertNotNull(result);
         assertEquals(testCategoryId, result.getCategoryId());
         assertEquals(testCategoryName, result.getCategoryName());
