@@ -1,6 +1,6 @@
 package dev.alvartaco.notifications.controller;
 
-import com.github.javafaker.Faker;
+import dev.alvartaco.notifications.dto.NotificationDisplayDTO;
 import dev.alvartaco.notifications.exception.NotificationException;
 import dev.alvartaco.notifications.service.NotificationService;
 import org.slf4j.Logger;
@@ -23,17 +23,16 @@ public class NotificationController {
 
     private static final Logger log = LoggerFactory.getLogger(NotificationController.class);
 
-    private final Faker faker;
     private final NotificationService notificationService;
     public NotificationController(
-                                    NotificationService notificationService,
-                                  Faker faker ) {
+                                    NotificationService notificationService ) {
         this.notificationService = notificationService;
-        this.faker = faker;
     }
 
     @GetMapping(value = "", produces = MediaType.TEXT_HTML_VALUE)
     public String list(Model model) throws NotificationException {
+        List<NotificationDisplayDTO> notificationDisplayDTOS = notificationService.getAllNotificationsDisplayDTOsLiFo();
+        model.addAttribute("displayTable", (notificationDisplayDTOS.isEmpty() ? "none" : "block"));
         model.addAttribute("rows", notificationService.getAllNotificationsDisplayDTOsLiFo());
         return "notifications/index";
     }
