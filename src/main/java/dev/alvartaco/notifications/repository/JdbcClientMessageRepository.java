@@ -26,38 +26,29 @@ public class JdbcClientMessageRepository implements IMessageRepository{
         this.jdbcClient = jdbcClient;
     }
 
-    /**
-     * It returns all Messages order id desc -> LIFO
-     * @return List of Message
-     */
-    public List<Message> findAllByMessageIdDesc() throws MessageException {
-        try {
-            return jdbcClient.sql("select * from message order by message_id desc")
-                    .query(Message.class)
-                    .list();
-        } catch (Exception e) {
-            log.error("#NOTIFICATIONS - List<Message> findAll() ");
-            throw new MessageException(e.toString());
-        }
-    }
 
-    /**
-     * Executes the SQL to get a Message by its messageId
-     * @param messageId The id of the requested Message
-     * @return Optional of Message
-     */
-    public Optional<Message> findByMessageId(Integer messageId) throws MessageException {
-        try {
-            return jdbcClient.sql("SELECT message_id, category_id, message_body, message_created_on " +
-                            "FROM message WHERE message_id = :messageId" )
-                    .param("messageId", messageId)
-                    .query(Message.class)
-                    .optional();
-        } catch (Exception e) {
-            log.error("#NOTIFICATIONS - Optional<Message> findByMessageId() ");
-            throw new MessageException(e.toString());
-        }
-    }
+//    public List<Message> findAllByMessageIdDesc() throws MessageException {
+//        try {
+//            return jdbcClient.sql("select * from message order by message_id desc")
+//                    .query(Message.class)
+//                    .list();
+//        } catch (Exception e) {
+//            log.error("#NOTIFICATIONS - List<Message> findAll() ");
+//            throw new MessageException(e.toString());
+//        }
+//    }
+//     public Optional<Message> findByMessageId(Integer messageId) throws MessageException {
+//        try {
+//            return jdbcClient.sql("SELECT message_id, category_id, message_body, message_created_on " +
+//                            "FROM message WHERE message_id = :messageId" )
+//                    .param("messageId", messageId)
+//                    .query(Message.class)
+//                    .optional();
+//        } catch (Exception e) {
+//            log.error("#NOTIFICATIONS - Optional<Message> findByMessageId() ");
+//            throw new MessageException(e.toString());
+//        }
+//    }
 
     /**
      * It inserts a new message
@@ -85,7 +76,7 @@ public class JdbcClientMessageRepository implements IMessageRepository{
 
     /**
      * Number of Message Rows in the table
-     */
+     *
     public Integer count() throws MessageException {
         try {
             return jdbcClient.sql("select message_id from message").query().listOfRows().size();
@@ -94,5 +85,5 @@ public class JdbcClientMessageRepository implements IMessageRepository{
             throw new MessageException(e.toString());
         }
     }
-
+    */
 }

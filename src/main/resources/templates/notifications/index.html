@@ -20,7 +20,6 @@
         </p>
         <div class="flex flex-1 justify-end">&nbsp;</div>
     </div>
-
     <div id="buttons" class="flex gap-x-6 bg-white-500 px-6 py-2.5 sm:px-1.5">
             <button
                 type="button"
@@ -36,6 +35,30 @@
                 Notifications
             </button>
         <div class="flex flex-1 justify-end">&nbsp;</div>
+    </div>
+    <div class="px-4 sm:px-6 lg:px-8">
+        <div class="mt-8 flow-root">
+            <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                    <table th:replace="~{notifications/row}" class="min-w-full divide-y divide-gray-300">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Name</th>
+                            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Email</th>
+                            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">ID</th>
+                        </tr>
+                        </thead>
+                        <tbody id="rows">
+                        <tr>
+                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">Name</td>
+                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">Email</td>
+                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">ID</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

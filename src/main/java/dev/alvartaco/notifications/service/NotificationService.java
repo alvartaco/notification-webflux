@@ -1,8 +1,12 @@
 package dev.alvartaco.notifications.service;
 
 import dev.alvartaco.notifications.dto.NotificationDTO;
+import dev.alvartaco.notifications.dto.NotificationDisplayDTO;
+import dev.alvartaco.notifications.exception.CategoryException;
 import dev.alvartaco.notifications.exception.NotificationException;
+import dev.alvartaco.notifications.model.ConstNotificationStatus;
 import dev.alvartaco.notifications.model.Message;
+import dev.alvartaco.notifications.model.Notification;
 import dev.alvartaco.notifications.model.User;
 import dev.alvartaco.notifications.notificationengine.factories.NotificationEngineFactory;
 import dev.alvartaco.notifications.repository.INotificationRepository;
@@ -13,7 +17,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
@@ -24,13 +31,16 @@ public class NotificationService {
     private final INotificationRepository iNotificationRepository;
     private final UserService userService;
     private final NotificationEngineFactory notificationEngineFactory;
+    private final CategoryService categoryService;
     public NotificationService(@Qualifier("jdbcClientNotificationRepository")
                                INotificationRepository iNotificationRepository,
                                NotificationEngineFactory notificationEngineFactory,
+                               CategoryService categoryService,
                                UserService userService) {
         this.userService = userService;
         this.iNotificationRepository = iNotificationRepository;
         this.notificationEngineFactory = notificationEngineFactory;
+        this.categoryService = categoryService;
     }
 
     /**
@@ -41,8 +51,9 @@ public class NotificationService {
      */
     public void notify(Message message) throws NotificationException {
 
-        NotificationDTO notificationDTO ;
+        Notification notification;
         Integer notificationId;
+        LocalDateTime now;
 
         List<User> users = userService.getUsersByCategoryId(message.category().getCategoryId());
         log.info("#NOTIFICATIONS - Users {}",  users);
@@ -64,20 +75,22 @@ public class NotificationService {
                     // Creates the corresponding notifications in the DB
                     for(String channelType : userChannelTypes) {
 
+                        now = LocalDateTime.now();
+
                         log.info("#NOTIFICATIONS - CREATE NOTIFICATION");
-                        notificationDTO = new NotificationDTO(
+                        notification = new Notification(
                                 0,
                                 message,
-                                message.category().getCategoryId(),
                                 user,
                                 channelType,
-                                LocalDateTime.now(),
-                                LocalDateTime.now(),
+                                ConstNotificationStatus.UNKNOWN,
+                                now,
+                                now,
                                 Short.parseShort("0"));
 
-                        log.info("#NOTIFICATIONS - notificationDTO {}",  notificationDTO);
+                        log.info("#NOTIFICATIONS - notification {}", notification);
 
-                        notificationId = create(notificationDTO);
+                        notificationId = create(notification);
 
                         // If the notification was created in the DB
                         // The corresponding notification message is sent to the user
@@ -95,7 +108,65 @@ public class NotificationService {
     /**
      * It saves a Notification
      */
-    public Integer create(@Valid NotificationDTO notificationDTO) throws NotificationException {
-           return iNotificationRepository.create(notificationDTO);
+    public Integer create(@Valid Notification notification) throws NotificationException {
+           return iNotificationRepository.create(notification);
     }
+
+    /**
+     * Used for Displaying the List of Notifications
+     * Log history. A list of all data records in the log, sorted from newest to oldest.
+     * @return
+     * @throws NotificationException
+     */
+    public List<NotificationDisplayDTO> getAllNotificationsDisplayDTOsLiFo() throws NotificationException {
+        try {
+            List<NotificationDisplayDTO> notificationDisplayDTOS = new ArrayList<>();
+            for (NotificationDTO notificationDTO : iNotificationRepository.findAllNotificationDTOsLiFo()) {
+                notificationDisplayDTOS.add(mapDTOToDisplayDTO(notificationDTO));
+            }
+            log.info("#NOTIFICATIONS - OK getAllNotificationsDisplayDTOsLiFo().");
+            return notificationDisplayDTOS;
+        } catch ( Exception e) {
+            log.error("#NOTIFICATIONS - ERROR getAllNotificationsDisplayDTOsLiFo().");
+            throw new NotificationException("Notification not found");
+        }
+    }
+
+    /**
+     * Fill the DTO with data formated por the Front
+     * @param NotificationDTO
+     * @return
+     */
+    public NotificationDisplayDTO mapDTOToDisplayDTO(NotificationDTO notificationDTO) throws CategoryException {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        Integer notificationId = notificationDTO.getNotificationId();
+        Integer messageId = notificationDTO.getMessageId();
+        String messageCategoryName = categoryService.getCategoryByCategoryId(notificationDTO.getMessageCategoryId()).getCategoryName();
+        Short categoryId = notificationDTO.getMessageCategoryId();
+        String userName = userService.getUsersByUserId(notificationDTO.getUserId()).userName();
+        Integer userId = notificationDTO.getUserId();
+        String channelType = notificationDTO.getNotificationChannelType();
+        String status = notificationDTO.getNotificationStatus();
+        String createdOn = (notificationDTO.getNotificationCreatedOn()).format(formatter);
+        String updatedOn = (notificationDTO.getNotificationUpdatedOn()).format(formatter);;
+        Short retryNumber = notificationDTO.getNotificationRetryNumber();
+
+        return new NotificationDisplayDTO(
+                         notificationId,
+                         messageId,
+                         messageCategoryName,
+                         categoryId,
+                         userName,
+                         userId,
+                         channelType,
+                         status,
+                         createdOn,
+                         updatedOn,
+                         retryNumber
+                );
+
+    }
+
 }

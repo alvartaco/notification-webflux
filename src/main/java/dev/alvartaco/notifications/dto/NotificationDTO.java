@@ -1,76 +1,86 @@
 package dev.alvartaco.notifications.dto;
 
-import dev.alvartaco.notifications.model.Message;
-import dev.alvartaco.notifications.model.User;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.time.LocalDateTime;
 
 public class NotificationDTO {
     private Integer notificationId;
-    private Message message;
-    private Short categoryId;
-    private User user;
-    private String channelType;
-    private LocalDateTime createdOn;
-    private LocalDateTime updatedOn;
-    private Short retryNumber;
+    private Integer messageId;
+    private Short messageCategoryId;
+    private Integer userId;
+    private String notificationChannelType;
+    private String notificationStatus;
+    private LocalDateTime notificationCreatedOn;
+    private LocalDateTime notificationUpdatedOn;
+    private Short notificationRetryNumber;
 
     public NotificationDTO(Integer notificationId,
-                           Message message,
-                           Short categoryId,
-                           User user,
-                           String channelType,
-                           LocalDateTime createdOn,
-                           LocalDateTime updatedOn,
-                           Short retryNumber) {
+                           Integer messageId,
+                           Short messageCategoryId,
+                           Integer userId,
+                           String notificationChannelType,
+                           String notificationStatus,
+                           LocalDateTime notificationCreatedOn,
+                           LocalDateTime notificationUpdatedOn,
+                           Short notificationRetryNumber) {
         this.notificationId = notificationId;
-        this.message = message;
-        this.categoryId = categoryId;
-        this.user = user;
-        this.channelType = channelType;
-        this.createdOn = createdOn;
-        this.updatedOn = updatedOn;
-        this.retryNumber = retryNumber;
+        this.messageId = messageId;
+        this.messageCategoryId = messageCategoryId;
+        this.userId = userId;
+        this.notificationChannelType = notificationChannelType;
+        this.notificationStatus = notificationStatus;
+        this.notificationCreatedOn = notificationCreatedOn;
+        this.notificationUpdatedOn = notificationUpdatedOn;
+        this.notificationRetryNumber = notificationRetryNumber;
     }
 
-    public Short getCategoryId() {
-        return categoryId;
+    public @NotEmpty String getNotificationStatus() {
+        return notificationStatus;
     }
 
-    public void setCategoryId(Short categoryId) {
-        this.categoryId = categoryId;
+    public void setNotificationStatus(@NotEmpty String notificationStatus) {
+        this.notificationStatus = notificationStatus;
     }
 
-    public String getChannelType() {
-        return channelType;
+    public Short getMessageCategoryId() {
+        return messageCategoryId;
     }
 
-    public void setChannelType(String channelType) {
-        this.channelType = channelType;
+    public void setMessageCategoryId(Short messageCategoryId) {
+        this.messageCategoryId = messageCategoryId;
     }
 
-    public LocalDateTime getCreatedOn() {
-        return createdOn;
+    public String getNotificationChannelType() {
+        return notificationChannelType;
     }
 
-    public void setCreatedOn(LocalDateTime createdOn) {
-        this.createdOn = createdOn;
+    public void setNotificationChannelType(String notificationChannelType) {
+        this.notificationChannelType = notificationChannelType;
     }
 
-    public LocalDateTime getUpdatedOn() {
-        return updatedOn;
+    public LocalDateTime getNotificationCreatedOn() {
+        return notificationCreatedOn;
     }
 
-    public void setUpdatedOn(LocalDateTime updatedOn) {
-        this.updatedOn = updatedOn;
+    public void setNotificationCreatedOn(LocalDateTime notificationCreatedOn) {
+        this.notificationCreatedOn = notificationCreatedOn;
     }
 
-    public Short getRetryNumber() {
-        return retryNumber;
+    public LocalDateTime getNotificationUpdatedOn() {
+        return notificationUpdatedOn;
     }
 
-    public void setRetryNumber(Short retryNumber) {
-        this.retryNumber = retryNumber;
+    public void setNotificationUpdatedOn(LocalDateTime notificationUpdatedOn) {
+        this.notificationUpdatedOn = notificationUpdatedOn;
+    }
+
+    public Short getNotificationRetryNumber() {
+        return notificationRetryNumber;
+    }
+
+    public void setNotificationRetryNumber(Short notificationRetryNumber) {
+        this.notificationRetryNumber = notificationRetryNumber;
     }
 
     public Integer getNotificationId() {
@@ -81,19 +91,21 @@ public class NotificationDTO {
         this.notificationId = notificationId;
     }
 
-    public Message getMessage() {
-        return message;
+    public Integer getMessageId() {
+        return messageId;
     }
 
-    public void setMessage(Message message) {
-        this.message = message;
+    public void setMessageId(Integer messageId) {
+        this.messageId = messageId;
     }
 
-    public User getUser() {
-        return user;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
+
+
 }

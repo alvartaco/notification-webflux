@@ -2,14 +2,15 @@ package dev.alvartaco.notifications.repository;
 
 import dev.alvartaco.notifications.dto.NotificationDTO;
 import dev.alvartaco.notifications.exception.NotificationException;
-import jakarta.validation.Valid;
+import dev.alvartaco.notifications.model.Notification;
+
+import java.util.List;
 
 /**
  * Interface to handle different types of Notification Repositories
  */
 public interface INotificationRepository {
 
-        Integer create(@Valid NotificationDTO notificationDTO) throws NotificationException;
-        Integer count() throws NotificationException;
-
+        Integer create(Notification notification) throws NotificationException;
+        List<NotificationDTO> findAllNotificationDTOsLiFo() throws NotificationException;
 }

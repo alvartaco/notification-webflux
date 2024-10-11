@@ -17,6 +17,8 @@ public class Notification {
     private User user;
     @NotEmpty
     private String channelType;
+    @NotEmpty
+    private String status;
     @NotNull
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
@@ -26,6 +28,7 @@ public class Notification {
                         Message message,
                         User user,
                         String channelType,
+                        String status,
                         LocalDateTime createdOn,
                         LocalDateTime updatedOn,
                         Short retryNumber) {
@@ -33,9 +36,18 @@ public class Notification {
         this.message = message;
         this.user = user;
         this.channelType = channelType;
+        this.status = status;
         this.createdOn = createdOn;
         this.updatedOn = updatedOn;
         this.retryNumber = retryNumber;
+    }
+
+    public @NotEmpty String getStatus() {
+        return status;
+    }
+
+    public void setStatus(@NotEmpty String status) {
+        this.status = status;
     }
 
     public String getChannelType() {

@@ -23,7 +23,6 @@ public class UserService{
      * @return
      */
     public List<User> getUsersByCategoryId(short categoryId){
-
         return usersRepository.findAll().stream()
             .filter(
                 user -> user.userSubscriptions()
@@ -42,5 +41,18 @@ public class UserService{
         return  user.userChannels()
                     .stream()
                     .toList();
+    }
+
+    /**
+     * Returns the User by Id
+     * @param userId
+     * @return
+     */
+    public User getUsersByUserId(Integer userId){
+        return usersRepository.findAll().stream()
+          .filter(user -> userId.equals(user.userId()))
+          .findAny()
+          .orElse(null);
+
     }
 }

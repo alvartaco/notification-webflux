@@ -1,9 +1,11 @@
 package dev.alvartaco.notifications;
 
+import com.github.javafaker.Faker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 /**
  *
@@ -25,5 +27,8 @@ public class Application {
         SpringApplication.run(Application.class, args);
         log.info("#NOTIFICATIONS - Application Started.");
     }
-
+    @Bean
+    public Faker faker() {
+        return new Faker();
+    }
 }

@@ -2,6 +2,7 @@ package dev.alvartaco.notifications.repository;
 
 import dev.alvartaco.notifications.dto.NotificationDTO;
 import dev.alvartaco.notifications.exception.NotificationException;
+import dev.alvartaco.notifications.model.Notification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.simple.JdbcClient;
@@ -26,7 +27,7 @@ public class JdbcClientNotificationRepository implements INotificationRepository
     }
 
     @Override
-    public Integer create(NotificationDTO notificationDTO) throws NotificationException {
+    public Integer create(Notification notification) throws NotificationException {
         try {
 
             KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -36,18 +37,20 @@ public class JdbcClientNotificationRepository implements INotificationRepository
                             "message_category_id, " +
                             "user_id, " +
                             "notification_channel_type, " +
+                            "notification_status, " +
                             "notification_created_on, " +
                             "notification_updated_on, " +
                             "notification_retry_number)" +
-                            "VALUES (?, ?, ?, ?, ?, ?, ?)")
+                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)")
                     .params(List.of(
-                            notificationDTO.getMessage().messageId(),
-                            notificationDTO.getMessage().category().getCategoryId(),
-                            notificationDTO.getUser().userId(),
-                            notificationDTO.getChannelType(),
-                            notificationDTO.getCreatedOn(),
-                            notificationDTO.getUpdatedOn(),
-                            notificationDTO.getRetryNumber()
+                            notification.getMessage().messageId(),
+                            notification.getMessage().category().getCategoryId(),
+                            notification.getUser().userId(),
+                            notification.getChannelType(),
+                            notification.getStatus(),
+                            notification.getCreatedOn(),
+                            notification.getUpdatedOn(),
+                            notification.getRetryNumber()
                     ))
                     .update(keyHolder);
 
@@ -63,6 +66,7 @@ public class JdbcClientNotificationRepository implements INotificationRepository
         }
     }
 
+    /*
     @Override
     public Integer count() throws NotificationException {
         try {
@@ -71,5 +75,18 @@ public class JdbcClientNotificationRepository implements INotificationRepository
             log.error("#NOTIFICATIONS - count() ");
             throw new NotificationException(e.toString());
         }
+    }*/
+
+    @Override
+    public List<NotificationDTO> findAllNotificationDTOsLiFo() throws NotificationException {
+        try {
+            return jdbcClient.sql("select * from notification order by notification_id desc")
+                    .query(NotificationDTO.class)
+                    .list();
+        } catch (Exception e) {
+            log.error("#NOTIFICATIONS - List<Notification> findAllNotificationDTOsLiFo() ");
+            throw new NotificationException(e.toString());
+        }
     }
 }
+

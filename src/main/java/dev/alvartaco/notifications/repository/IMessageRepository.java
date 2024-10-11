@@ -12,8 +12,6 @@ import java.util.Optional;
  */
 public interface IMessageRepository {
 
-        List<Message> findAllByMessageIdDesc() throws MessageException;
-        Optional<Message> findByMessageId(Integer messageId) throws MessageException;
         Integer create(@Valid Message message) throws MessageException;
-        Integer count() throws MessageException;
+        
 }

@@ -82,6 +82,7 @@ create table if not exists notification (
    message_category_id int not null,
    user_id int not null,
    notification_channel_type varchar(30) not null,
+   notification_status varchar(30) not null,
    notification_created_on timestamp not null,
    notification_updated_on timestamp ,
    notification_retry_number smallint,
@@ -94,5 +95,6 @@ create index idx_notification_message_id on notification(message_id);
 create index idx_notification_message_category_id on notification(message_category_id);
 create index idx_notification_user_id on notification(user_id);
 create index idx_notification_channel_type on notification(notification_channel_type);
+create index idx_notification_status on notification(notification_status);
 create index idx_notification_notification_created_on on notification(notification_created_on);
 create index idx_notification_notification_updated_on on notification(notification_updated_on);
