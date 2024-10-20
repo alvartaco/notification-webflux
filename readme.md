@@ -65,9 +65,9 @@ For buildeng the application uses:
      
      :: Spring Boot ::                (v3.3.4)
 
-    -> JDK : 22
+    -> JDK : 21
 
-    -> HTTP Port : 8088
+    -> HTTP Port : 8080
 
     -> MAVEN
    
