@@ -65,9 +65,11 @@ For buildeng the application uses:
      
      :: Spring Boot ::                (v3.3.4)
 
-    -> JDK : 22
+    -> Docker : Enabled to be dockerized
 
-    -> HTTP Port : 8088
+    -> JDK : 21
+
+    -> HTTP Port : 8080
 
     -> MAVEN
    

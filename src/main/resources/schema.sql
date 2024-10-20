@@ -56,13 +56,13 @@ create table if not exists Message (
 -- They depends on DB Engine used
 --
 -- I relly on PK indexes for H2
--- Needed for Postgres
--- CREATE INDEX idx_category_category_id ON category(category_id);
--- CREATE INDEX idx_message_message_id ON message(message_id);
+-- Needed for Postgres/mysql
+CREATE INDEX idx_category_category_id ON category(category_id);
+CREATE INDEX idx_message_message_id ON message(message_id);
 --
 -- I trust also in FK Index for H2
--- Needed for Postgres
--- CREATE INDEX idx_message_category_id ON message(category_id);
+-- Needed for Postgres/mysql
+CREATE INDEX idx_message_category_id ON message(category_id);
 --
 -- Because queries look at this columns for
 -- retrieval and sorting
