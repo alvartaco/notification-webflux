@@ -55,7 +55,7 @@ As a user interface, you must display 2 main elements.
 
 -----------------------------------------------------------------------------------------------
 
-For buildeng the application uses:
+Details of the application :
 
       .   ____          _            __ _ _
      /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
