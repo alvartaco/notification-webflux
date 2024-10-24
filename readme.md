@@ -45,12 +45,13 @@ As a user interface, you must display 2 main elements.
 
 1. Submission form. A simple form to send the message that contains 2 fields:
   
-
     • Category. List of available categories.
 
     • Message. Text area, confirm that the message is not empty.
 
-<!-- 2. Log history. A list of all data records in the log, sorted from newest to oldest.-->
+2. Log history. A list of all data records in the log, sorted from newest to oldest.
+
+   • List of Notifications sent.
 
 -----------------------------------------------------------------------------------------------
 
@@ -65,7 +66,7 @@ For buildeng the application uses:
      
      :: Spring Boot ::                (v3.3.4)
 
-    -> Docker : Enabled to be dockerized
+    -> Docker Image : https://hub.docker.com/r/alvartaco/notifications-app
 
     -> JDK : 21
 
